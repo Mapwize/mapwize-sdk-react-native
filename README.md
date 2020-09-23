@@ -1,2 +1,11 @@
 # mapwize-sdk-react-native
-Integrate Mapwize Indoor Maps &amp; Wayfinding in your React Native apps
+
+Under development
+
+## Contributing
+
+See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+
+## License
+
+MIT
