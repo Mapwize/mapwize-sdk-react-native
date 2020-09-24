@@ -19,7 +19,20 @@ pod 'mapwize-sdk-react-native'
 
 ### Android
 
-/// TODO Lakhdar
+The minimum supported Android sdk version is 21.
+The minimum supported `mapwize-sdk-android` version is `3.4.2`.
+
+in your Project `build.gradle` file, you have to add :
+
+```groovy
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://www.jitpack.io' }
+        maven { url 'https://maven.mapwize.io'}
+    }
+}
+```
 
 ## Creating your first map
 
@@ -34,7 +47,7 @@ render() {
 
 ```
 
-All instanciated maps are independant. You can add multiple maps with different MapwizeConfiguration in your application.
+All instaciated maps are independant. You can add multiple maps with different MapwizeConfiguration in your application.
 
 ## Using the remote api
 
