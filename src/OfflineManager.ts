@@ -6,7 +6,6 @@ import type {
   OfflineManager,
   Universe,
   OfflineRegion,
-  DownloadDataOptions,
 } from './types'
 
 const { RNMWZOfflineManager } = NativeModules

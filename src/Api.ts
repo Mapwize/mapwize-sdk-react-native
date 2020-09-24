@@ -6,7 +6,7 @@ import type {
   Venue,
   DirectionPoint,
   DirectionMode,
-  DistanceOptions,
+  Placelist,
   SearchParams,
   MapwizeConfiguration,
 } from './types'
@@ -108,8 +108,8 @@ const getMainFroms = (contextId: string) => (venue: Venue) =>
 const getMainSearches = (contextId: string) => (venue: Venue) =>
   RNMWZApi.getMainSearches(contextId, venue)
 
-const getPlacesForPlacelist = (contextId: string) => (id: string) =>
-  RNMWZApi.getPlacesForPlacelist(contextId, id)
+const getPlacesForPlacelist = (contextId: string) => (placelist: Placelist) =>
+  RNMWZApi.getPlacesForPlacelist(contextId, placelist)
 
 const getPlace = (contextId: string) => (id: string) =>
   RNMWZApi.getPlace(contextId, id)

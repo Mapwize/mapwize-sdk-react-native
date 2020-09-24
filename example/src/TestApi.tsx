@@ -633,10 +633,11 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
   }
 
   getTests = () => {
+    const testClass: any = this
     const tests = Object.keys(this)
       .filter((field: string) => field.endsWith('Test'))
-      .reduce((pTest, test) => {
-        pTest[test] = { test: this[test], passed: true }
+      .reduce((pTest: any, test: string) => {
+        pTest[test] = { test: testClass[test], passed: true }
         return pTest
       }, {})
     return tests

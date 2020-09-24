@@ -11,21 +11,11 @@ import {
   CreateMapwizeAPI,
   CreateOfflineManager,
   MapwizeConfiguration,
-  Place,
   MapwizeApi,
-  Direction,
-  DirectionMode,
-  Placelist,
-  SearchParams,
-  MapwizeObject,
   Venue,
-  ApiFilter,
   Universe,
-  Layer,
-  DistanceResponse,
   OfflineManager,
   OfflineRegion,
-  DownloadDataOptions,
 } from 'mapwize-sdk-react-native'
 const mapwizeConfiguration = new MapwizeConfiguration(
   '47aabfedfe66c0cf4a5ebe0c0bdb6d0d'
@@ -33,41 +23,10 @@ const mapwizeConfiguration = new MapwizeConfiguration(
 const mapwizeApi: MapwizeApi = CreateMapwizeAPI(mapwizeConfiguration)
 
 const venueId = '56b20714c3fa800b00d8f0b5'
-const placeId = '5bc49413bf0ed600114db1f0'
-const layerId = '5ed12401f167b30016e2d61b'
-const placelistId = '5784fc5f7f2a900b0055f603'
-const apiKeyRestricted = '70cdc17a7590a2dcd7333ef5e09a5892'
-const accessKey = 'ELyNoFClJYJCWnTO'
-const showAlert = (
-  title: string,
-  data: any,
-  callback: (data: string) => void
-) => {
-  let stopped = false
-  const buttons = [
-    { text: 'Stop', onPress: () => (stopped = true) } as AlertButton,
-  ]
-  const message = JSON.stringify(data, null, 2)
-  callback &&
-    buttons.push({
-      text: 'Next',
-      onPress: () => {
-        stopped = true
-        callback(message)
-      },
-    } as AlertButton)
 
-  Alert.alert(title, message, buttons)
-  callback && setTimeout(() => !stopped && callback(message), 1000)
-}
 const testEnded = () => {
   Alert.alert('Test has ended', '', [{ text: 'Finish' } as AlertButton])
 }
-const failed = (message: any, resolve: () => void) => {
-  showAlert('Test failed', message, resolve)
-}
-const isSorted = (arr: Array<any>) =>
-  arr.every((v, i, a) => !i || a[i - 1] <= v)
 
 interface IState {
   tests: any
@@ -348,10 +307,11 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
       })
   }
   getTests = () => {
+    const testClass: any = this
     const tests = Object.keys(this)
       .filter((field: string) => field.endsWith('Test'))
-      .reduce((pTest, test) => {
-        pTest[test] = { test: this[test], passed: true }
+      .reduce((pTest: any, test: string) => {
+        pTest[test] = { test: testClass[test], passed: true }
         return pTest
       }, {})
     return tests
