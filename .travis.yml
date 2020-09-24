@@ -9,7 +9,6 @@ deploy:
   - provider: npm
     email: 'support@mapwize.io'
     api_key: '${NPM_TOKEN}'
-    script: yarn publish
     tag: '${TRAVIS_TAG}'
     skip_cleanup: true
     on:
