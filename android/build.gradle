@@ -1,6 +1,4 @@
 buildscript {
-  // Buildscript is evaluated before everything else so we can't use getExtOrDefault
-  def kotlin_version = rootProject.ext.has('kotlinVersion') ? rootProject.ext.get('kotlinVersion') : project.properties['Mapwize_kotlinVersion']
 
   repositories {
     google()
@@ -9,13 +7,10 @@ buildscript {
 
   dependencies {
     classpath 'com.android.tools.build:gradle:3.2.1'
-    // noinspection DifferentKotlinGradleVersion
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
   }
 }
 
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
 
 def getExtOrDefault(name) {
   return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties['Mapwize_' + name]
@@ -122,18 +117,15 @@ repositories {
   }
 }
 
-def kotlin_version = getExtOrDefault('kotlinVersion')
-
 dependencies {
   // noinspection GradleDynamicVersion
   api 'com.facebook.react:react-native:+'
-  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
   implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
-  implementation ("io.mapwize.sdk:mapwize-sdk:$mapwize_sdk_version")
+  implementation ("io.mapwize.sdk:mapwize-sdk:3.4.2")
   implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:8.4.0'
   implementation('com.mapbox.mapboxsdk:mapbox-android-services:2.2.9')
 
   implementation 'com.github.IndoorLocation:gps-indoor-location-provider-android:1.0.4'
-  implementation "com.github.IndoorLocation:indoor-location-android:$indoor_location_version"
+  implementation "com.github.IndoorLocation:indoor-location-android:1.0.5"
   implementation 'com.github.IndoorLocation:manual-indoor-location-provider-android:1.0.0'
 }

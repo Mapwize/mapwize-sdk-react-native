@@ -1,6 +1,7 @@
 package com.mapwize;
 
 import android.app.Application;
+import android.content.Context;
 import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
@@ -28,12 +29,12 @@ import io.mapwize.mapwizesdk.core.MapwizeConfiguration;
 public class MapwizeOfflineModule extends ReactContextBaseJavaModule {
 
   private static final String TAG = "MapwizeOfflineModule";
-  private final Application application;
+  private final Context context;
   Map<String, OfflineManager> map = new HashMap<>();
 
-  public MapwizeOfflineModule(ReactApplicationContext context, Application application) {
+  public MapwizeOfflineModule(ReactApplicationContext context) {
     super(context);
-    this.application = application;
+    this.context = context;
   }
 
   @Override
@@ -44,7 +45,7 @@ public class MapwizeOfflineModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void createOfflineManager(ReadableMap options, String currentContextId, Promise promise) {
     try {
-      MapwizeConfiguration mapwizeConfiguration = RNMapUtil.parseMapwizeConfiguration(options, application.getApplicationContext());
+      MapwizeConfiguration mapwizeConfiguration = RNMapUtil.parseMapwizeConfiguration(options, context);
 
       if (mapwizeConfiguration.getApiKey().equals("")) {
         rejectPromise(promise, new Exception("Unable to create context with missing ApiKey"));

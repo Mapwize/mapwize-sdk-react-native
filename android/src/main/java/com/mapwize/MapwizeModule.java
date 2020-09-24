@@ -1,6 +1,6 @@
 package com.mapwize;
 
-import android.app.Application;
+import android.content.Context;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -35,12 +35,12 @@ import io.mapwize.mapwizesdk.core.MapwizeConfiguration;
 public class MapwizeModule extends ReactContextBaseJavaModule {
 
   private static final String TAG = "MapwizeModule";
-  private final Application application;
+  private final Context context;
   Map<String, MapwizeContext> map = new HashMap<>();
 
-  public MapwizeModule(ReactApplicationContext context, Application application) {
+  public MapwizeModule(ReactApplicationContext context) {
     super(context);
-    this.application = application;
+    this.context = context;
   }
 
   @Override
@@ -51,7 +51,7 @@ public class MapwizeModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void createMapwizeApi(ReadableMap options, String currentContextId, Promise promise) {
     try {
-      MapwizeConfiguration mapwizeConfiguration = RNMapUtil.parseMapwizeConfiguration(options, application.getApplicationContext());
+      MapwizeConfiguration mapwizeConfiguration = RNMapUtil.parseMapwizeConfiguration(options, context);
 
       if (mapwizeConfiguration.getApiKey().equals("")) {
         rejectPromise(promise, new Exception("Unable to create context with missing ApiKey"));
