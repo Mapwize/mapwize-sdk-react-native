@@ -1,17 +1,25 @@
 language: node_js
 node_js:
-- 14
+  - 14
 script:
-- yarn install
-- yarn docsPublish
-- zip -r tsdocs.zip docs_html || travis_terminate 1;
+  - yarn install
+  - yarn docsPublish
+  - zip -r tsdocs.zip docs_html || travis_terminate 1;
 deploy:
-- provider: releases
-  api_key: "${GITHUB_TOKEN}"
-  file: "./tsdocs.zip"
-  skip_cleanup: true
-  on:
-    tags: true
+  - provider: npm
+    email: 'support@mapwize.io'
+    api_key: '${NPM_TOKEN}'
+    script: yarn publish
+    tag: '${TRAVIS_TAG}'
+    skip_cleanup: true
+    on:
+      tags: true
+  - provider: releases
+    api_key: '${GITHUB_TOKEN}'
+    file: './tsdocs.zip'
+    skip_cleanup: true
+    on:
+      tags: true
 env:
   global:
     secure: cfao98qNBY1KaZdE4HlCT/xINS8PP+BGS1iCgLM/GXTbkwGh5bTYxZNBUN8VXNbNo+E2C/5jl5jG/lSlQngCuU1Ql1iz/57PUvq4C7/wb1hTy696GKsdVu3/oZyVk4vYZTZhXsb7wavugeFd1cZSMCO4l0f6UaKfXtxFJPMbe3RTbM8F3HFu4j9SgaN/YOxcY/PVIckXmDDtl2M0R0Ey+MOs9ILT4mtBIgH5GQ2F0/8zEQclyDl9RRVpAmyo5YX6Mvh4O3Byw/I/w9LGxAj14Tp4TcBpTThKDCMF9RmCiKUzEJt1ATXTH/ipMDatb5oT7AjJsriSyOifl55WO6MPM2QTpqGpjoLp2TDzsdh/gXeTC1O+LK8oUcCoMx5Tufpx2MHIkPn2K8UNzNK5eAhK4DIDhQ6MqO0fIEq/5shTUk64Cp5OqPbVD2N4EWZZn8g/B15lNqyykl6LO2KGJj4Bu1yNqSp0TLGvfOVmrGCShdvPrrnxFsO3R59wE8yX2MlDjz7YF7elQAnm4NjNIyjDAzqwu4EnnQi2P4MH3IVmYUAu0/85cQ1TyG4qprFPl9kZMPBsDO47FU/4Wc5TiX3Itg0mbMLXAYCAZApgGq6rL2nSFqAjirEcKuYAjhdlJL1SRyOcdsZoygzEV2vaRDMU+s9t+ta23BgpB1RvrkGVPVQ= # GITHUB_TOKEN
