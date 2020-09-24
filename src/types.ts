@@ -159,24 +159,6 @@ export interface OfflineManager {
    */
   checkForUpdate: (offlineRegion: OfflineRegion) => Promise<Boolean>
 }
-
-export class DownloadDataOptions {
-  venue: Venue
-  universe: Universe
-  minZoom: number
-  maxZoom: number
-  constructor(
-    venue: Venue,
-    universe: Universe,
-    minZoom: number = 18,
-    maxZoom: number = 23
-  ) {
-    this.venue = venue
-    this.universe = universe
-    this.minZoom = minZoom
-    this.maxZoom = maxZoom
-  }
-}
 /*
 MapView direct methods
 */
@@ -514,22 +496,6 @@ export class NavigationInfo {
     this.originalLocation = originalLocation
     this.snappedLocation = snappedLocation
   }
-}
-
-/**
- * Internal use only
- */
-export interface EventValue<T> {
-  value: T
-}
-
-/**
- * Internal use only
- */
-export interface MapwizeInternalEvent {
-  promiseId: number
-  success: boolean
-  value: any
 }
 
 /**

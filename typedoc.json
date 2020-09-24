@@ -1,0 +1,7 @@
+{
+  "inputFiles": ["src/types.ts"],
+  "mode": "file",
+  "theme": "minimal",
+  "out": "docs_html",
+  "plugin": "none"
+}

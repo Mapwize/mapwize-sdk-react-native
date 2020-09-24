@@ -1,3 +1,7 @@
+**mapwize-sdk-react-native**
+
+> README / [Globals](globals.md)
+
 # Mapwize SDK for React Native
 
 This library allows developers to integrate Mapwize Indoor Maps & Wayfinding in their React Native mobile application.
