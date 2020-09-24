@@ -4,7 +4,6 @@ import { requireNativeComponent } from 'react-native'
 import type {
   MapwizeViewProps,
   Floor,
-  EventValue,
   MapwizeViewRef,
   Venue,
   VenuePreview,
@@ -14,8 +13,8 @@ import type {
   FollowUserMode,
   DirectionMode,
   LatLngFloor,
-  MapwizeInternalEvent,
 } from './types'
+import type { MapwizeInternalEvent, EventValue } from './internalTypes'
 import Commands from './command'
 
 const transform = (externalProp: any) => {

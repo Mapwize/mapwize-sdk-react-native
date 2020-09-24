@@ -88,10 +88,10 @@ class OfflineManagerImp implements OfflineManager {
         progressListenerId,
         offlineRegion
       ).then(
-        (offlineRegion: OfflineRegion) => {
+        (offlineRegion1: OfflineRegion) => {
           eventListener.remove()
           delete this.progressListeners[progressListenerId]
-          resolve(offlineRegion)
+          resolve(offlineRegion1)
         },
         (message: string) => {
           eventListener.remove()

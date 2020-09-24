@@ -1,7 +1,7 @@
 {
   "name": "mapwize-sdk-react-native",
-  "version": "0.0.1",
-  "description": "Map",
+  "version": "0.0.3",
+  "description": "Use Mapwize Indoor Maps in your React Native application",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/src/index.d.ts",
@@ -27,13 +27,16 @@
     "release": "release-it",
     "example": "yarn --cwd example",
     "pods": "cd example && pod-install --quiet",
-    "bootstrap": "yarn example && yarn && yarn pods"
+    "bootstrap": "yarn example && yarn && yarn pods",
+    "docs": "typedoc --plugin typedoc-plugin-markdown --out docs",
+    "docsPublish": "typedoc"
   },
   "keywords": [
     "react-native",
     "ios",
     "android",
-    "mapwize"
+    "mapwize",
+    "indoor maps"
   ],
   "repository": "https://github.com/Mapwize/mapwize-sdk-react-native.git",
   "author": "Mapwize <contact@mapwize.io> (https://github.com/Mapwize)",
@@ -61,6 +64,8 @@
     "react": "16.11.0",
     "react-native": "0.62.2",
     "release-it": "^13.5.8",
+    "typedoc": "^0.19.2",
+    "typedoc-plugin-markdown": "^3.0.2",
     "typescript": "^3.8.3"
   },
   "peerDependencies": {

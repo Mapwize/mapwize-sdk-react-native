@@ -159,24 +159,6 @@ export interface OfflineManager {
    */
   checkForUpdate: (offlineRegion: OfflineRegion) => Promise<Boolean>
 }
-
-export class DownloadDataOptions {
-  venue: Venue
-  universe: Universe
-  minZoom: number
-  maxZoom: number
-  constructor(
-    venue: Venue,
-    universe: Universe,
-    minZoom: number = 18,
-    maxZoom: number = 23
-  ) {
-    this.venue = venue
-    this.universe = universe
-    this.minZoom = minZoom
-    this.maxZoom = maxZoom
-  }
-}
 /*
 MapView direct methods
 */
@@ -288,36 +270,31 @@ export interface MapwizeViewProps {
   /**
    * The map options that will be used to initialized this instance of MapwizeView
    */
-  mapOptions: MapOptions
+  mapOptions?: MapOptions
   /**
    * The user current location
    */
-  userLocation: LatLngFloor | undefined
+  userLocation?: LatLngFloor | undefined
   /**
    * Markers that are currently displayed on the map.
    */
-  markers: MarkerProp[] | undefined
+  markers?: MarkerProp[] | undefined
   /**
    * Places that are currently promoted on the map
    */
-  promotedPlaces: (Place | PlacePreview | Placelist)[] | undefined
+  promotedPlaces?: (Place | PlacePreview | Placelist)[] | undefined
   /**
    * Custom place styles
    */
-  placeStyles: PlaceStyleProp[] | undefined
+  placeStyles?: PlaceStyleProp[] | undefined
   /**
    * Direction that is currentrly displayed on the map
    */
-  mapDirection: DirectionProp | undefined
+  mapDirection?: DirectionProp | undefined
   /**
    * Navigation that is currentrly displayed on the map
    */
-  mapNavigation: NavigationProp | undefined
-  onMapwizeEvent?: ({
-    nativeEvent,
-  }: {
-    nativeEvent: MapwizeInternalEvent
-  }) => void
+  mapNavigation?: NavigationProp | undefined
   /**
    * Called when the MapwizeMap component is fully load and ready to be used.
    * You can use this method to get the MapwizeViewRef
@@ -519,22 +496,6 @@ export class NavigationInfo {
     this.originalLocation = originalLocation
     this.snappedLocation = snappedLocation
   }
-}
-
-/**
- * Internal use only
- */
-export interface EventValue<T> {
-  value: T
-}
-
-/**
- * Internal use only
- */
-export interface MapwizeInternalEvent {
-  promiseId: number
-  success: boolean
-  value: any
 }
 
 /**

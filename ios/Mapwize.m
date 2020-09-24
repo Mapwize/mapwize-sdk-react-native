@@ -4,6 +4,11 @@
 
 RCT_EXPORT_MODULE(RNMWZApi)
 
++ (BOOL)requiresMainQueueSetup
+{
+    return YES;
+}
+
 - (instancetype) init {
     if (self = [super init]) {
         _configById = [[NSMutableDictionary alloc] init];
