@@ -1,5 +1,5 @@
 import { UIManager, NativeModules, Platform } from 'react-native'
-import type { MapwizeInternalEvent } from './types'
+import type { MapwizeInternalEvent } from './internalTypes'
 const { RNMWZMap } = NativeModules
 const MyUIManager = UIManager as any
 type AcceptReject = (val?: any) => void
