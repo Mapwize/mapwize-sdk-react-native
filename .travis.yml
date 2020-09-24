@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - 14
+script:
+  - yarn install
+  - yarn docsPublish
+  - zip -r tsdocs.zip docs_html || travis_terminate 1;
+deploy:
+  - provider: releases
+    api_key: '${GITHUB_TOKEN}'
+    file: './tsdocs.zip'
+    skip_cleanup: true
+    on:
+      tags: true
