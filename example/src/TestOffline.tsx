@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import * as React from 'react'
 import {
   Alert,
@@ -307,6 +308,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
       })
   }
   getTests = () => {
+    // eslint-disable-next-line consistent-this
     const testClass: any = this
     const tests = Object.keys(this)
       .filter((field: string) => field.endsWith('Test'))
@@ -317,9 +319,9 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     return tests
   }
   runTests = () => {
-    const tests: any = this.state.tests
+    const testsG: any = this.state.tests
     var p = Promise.resolve()
-    Object.keys(tests).forEach((testName: any) => {
+    Object.keys(testsG).forEach((testName: any) => {
       p = p.then(
         () =>
           new Promise((resolve) =>
@@ -406,7 +408,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
                   key={index}
                   style={{
                     padding: 8,
-                    backgroundColor: index % 2 == 1 ? '#eee' : '#fff',
+                    backgroundColor: index % 2 === 1 ? '#eee' : '#fff',
                     alignItems: 'flex-start',
                     borderColor: '#efe',
                     paddingHorizontal: 80,
