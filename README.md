@@ -93,7 +93,7 @@ const offlineManager: OfflineManager = CreateOfflineManager(mapConfig)
 
 ## Documentation
 
-Here you can find the [Documentation](docs/globals.md)
+Please refer to the Mapwize SDK React Native documentation on [docs.mapwize.io](https://docs.mapwize.io/)
 
 ## Contributing
 
@@ -101,7 +101,7 @@ While this project is mainly maintained by the Mapwize team, all contributions a
 
 ## Thanks
 
-We would like to thank the [Cardiweb](www.cardiweb.com) team for their contribution to this React Native integration.
+We would like to thank the [Cardiweb](https://www.cardiweb.com) team for their contribution to this React Native integration.
 
 ## Evolution and support
 
@@ -109,4 +109,4 @@ For any question or request, please contact us at <support@mapwize.io>.
 
 ## License
 
-[MIT](LICENSE)
+MIT
