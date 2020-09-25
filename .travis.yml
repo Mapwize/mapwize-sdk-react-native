@@ -7,8 +7,8 @@ before_deploy:
   - git commit --no-verify -am "$gitMessage"
   - git tag -d $TRAVIS_TAG
   - git tag $TRAVIS_TAG
-  - git push origin :$TRAVIS_TAG
-  - git push origin $TRAVIS_TAG
+  # - git push origin :$TRAVIS_TAG
+  # - git push origin $TRAVIS_TAG
   - yarn install
   - yarn docsPublish
   - zip -r tsdocs.zip docs_html || travis_terminate 1;
