@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - 14
 before_deploy:
-  - ./fixNpmVersion.sh || true
+  - ./fixNpmVersion.sh
   - yarn install
   - yarn docsPublish
   - zip -r tsdocs.zip docs_html || travis_terminate 1;
