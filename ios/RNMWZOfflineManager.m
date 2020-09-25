@@ -9,12 +9,6 @@ RCT_EXPORT_MODULE(RNMWZOfflineManager)
     return YES;
 }
 
-
-- (dispatch_queue_t)methodQueue
-{
-  return dispatch_get_main_queue();
-}
-
 - (instancetype) init {
     if (self = [super init]) {
         _configById = [[NSMutableDictionary alloc] init];
