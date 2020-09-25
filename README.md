@@ -59,8 +59,6 @@ render() {
 
 All instantiated maps are independent. You can add multiple maps with different MapwizeConfiguration in your application.
 
-<!-- You can find all the available props in [MapwizeViewProps](###The-MapwizeMap-props). -->
-
 ## Using the map methods
 
 You can use the `MapwizeViewRef` returned by the `onMapLoaded` property to run any map related method.
@@ -75,8 +73,6 @@ render() {
 }
 ```
 
-<!-- You can find all the available methods in [MapwizeViewRef](###The-MapwizeViewRef-methods). -->
-
 ## Using the remote api
 
 You can access to the Mapwize remote api methods using `CreateMapwizeAPI` to create an instance of MapwizeApi.
@@ -86,8 +82,6 @@ const mapConfig = new MapwizeConfiguration('YOUR_API_KEY')
 const api: MapwizeApi = CreateMapwizeAPI(mapConfig)
 ```
 
-<!-- You can find all the available methods in [MapwizeApi](###The-MapwizeApi-methods). -->
-
 ## Using the offline manager
 
 You can access the Mapwize offline Manger methods using `CreateOfflineManager` to create an instance of OfflineManager.
@@ -96,8 +90,6 @@ You can access the Mapwize offline Manger methods using `CreateOfflineManager` t
 const mapConfig = new MapwizeConfiguration('YOUR_API_KEY')
 const offlineManager: OfflineManager = CreateOfflineManager(mapConfig)
 ```
-
-<!-- You can find all the available methods in [OfflineManager](###The-OfflineManager-methods). -->
 
 ## Documentation
 
