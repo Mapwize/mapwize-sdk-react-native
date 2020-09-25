@@ -1,7 +1,7 @@
 {
   "name": "mapwize-sdk-react-native",
   "version": "0.0.3",
-  "description": "Use Mapwize Indoor Maps in your React Native application",
+  "description": "Integrate Mapwize Indoor Maps & Wayfinding in your React Native apps",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/src/index.d.ts",
@@ -36,10 +36,12 @@
     "ios",
     "android",
     "mapwize",
-    "indoor maps"
+    "indoor",
+    "maps",
+    "wayfinding"
   ],
   "repository": "https://github.com/Mapwize/mapwize-sdk-react-native.git",
-  "author": "Mapwize <contact@mapwize.io> (https://github.com/Mapwize)",
+  "author": "Mapwize <support@mapwize.io>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Mapwize/mapwize-sdk-react-native/issues"
