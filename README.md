@@ -99,6 +99,10 @@ Here you can find the [Documentation](docs/globals.md)
 
 While this project is mainly maintained by the Mapwize team, all contributions are welcome. Do not hesitate to open an issue or create a pull request on this project.
 
+## Thanks
+
+We would like to thank the [Cardiweb](www.cardiweb.com) team for their contribution to this React Native integration.
+
 ## Evolution and support
 
 For any question or request, please contact us at <support@mapwize.io>.
