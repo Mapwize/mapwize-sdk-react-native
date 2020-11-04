@@ -8,7 +8,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RNMWZMapView : RCTView <MWZMapViewDelegate>
+@interface RNMWZMapView : RCTView <MWZMapViewDelegate, MGLMapViewDelegate>
 
 @property (nonatomic) MWZMapView* mapView;
 @property (nonatomic, weak) id<RNMWZMapViewDelegate> delegate;
@@ -24,6 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSDictionary<NSString*, MWZStyle*>* placeStyles;
 @property (nonatomic) NSArray* promotedPlaces;
 @property (nonatomic) MWZLatLngFloor* userLocation;
+
+@property (nonatomic) NSNumber* _Nullable tilt;
+@property (nonatomic) NSNumber* _Nullable bearing;
+
 
 @property (nonatomic, copy) RCTBubblingEventBlock onMapLoaded;
 

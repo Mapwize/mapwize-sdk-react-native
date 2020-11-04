@@ -12,6 +12,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 
@@ -92,6 +93,9 @@ public class RNMapwizeView extends FrameLayout {
   private Double initialFloor = null;
   private List<LatLng> initialPoints = null;
   private MapOptions mapOptions = null;
+  private Double tilt = null;
+  private Double bearing = null;
+  private boolean compassEnabled =  false;
 
   private int viewLifecycleStep = LIFECYCLESTEP_NOT_STARTED, mapviewLifecycleStep;
   private HashMap<String, Style> placesStyles;
@@ -210,8 +214,11 @@ public class RNMapwizeView extends FrameLayout {
     this.mapwizeContext = mapwizeContext;
   }
 
-  protected void setMapOptions(MapOptions mapOptions) {
+  protected void setMapOptions(MapOptions mapOptions, double tilt, double bearing, boolean compassEnabled) {
     this.mapOptions = mapOptions;
+    this.tilt = tilt;
+    this.bearing = bearing;
+    this.compassEnabled = compassEnabled;
   }
 
   static boolean mapboxInitialised = false;
@@ -247,6 +254,22 @@ public class RNMapwizeView extends FrameLayout {
       mapwizeView.onCreate(new Bundle());
       mapwizeView.getMapAsync((_mapwizeMap) -> {
         mapwizeMap = _mapwizeMap;
+
+        if (this.tilt != null || this.bearing != null) {
+          CameraPosition cameraPosition = mapwizeMap.getMapboxMap().getCameraPosition();
+          CameraPosition.Builder builder = new CameraPosition.Builder(cameraPosition);
+          if (this.tilt != null) {
+            builder.tilt(tilt);
+          }
+          if (this.bearing != null) {
+            builder.bearing(bearing);
+          }
+          mapwizeMap.getMapboxMap().setCameraPosition(builder.build());
+        }
+
+        if (!this.compassEnabled) {
+          mapwizeMap.getMapboxMap().getUiSettings().setCompassEnabled(false);
+        }
 
         mapwizeMap.addOnClickListener(clickEvent -> sendEventToJS(onClickEvent_event, clickEvent));
         mapwizeMap.addOnLongClickListener(clickEvent -> sendEventToJS(onLongClickEvent_event, clickEvent));

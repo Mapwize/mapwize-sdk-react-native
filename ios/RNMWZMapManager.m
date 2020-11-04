@@ -7,6 +7,9 @@
 @interface RNMWZMapManager ()
 
 @property (nonatomic) RNMWZMapView* mapView;
+@property (nonatomic, assign) BOOL compassEnabled;
+@property (nonatomic) NSNumber* tilt;
+@property (nonatomic) NSNumber* bearing;
 
 @end
 
@@ -34,6 +37,16 @@ RCT_CUSTOM_VIEW_PROPERTY(mapwizeConfiguration, MWZMapwizeConfiguration, RNMWZMap
 RCT_CUSTOM_VIEW_PROPERTY(mapOptions, MWZOptions, RNMWZMapView) {
     MWZOptions* options = [MWZApiResponseParser parseMapOptions:json];
     [view setMapOptions:options];
+    if (json[@"compassEnabled"]) {
+        _compassEnabled = [json[@"compassEnabled"] boolValue];
+    }
+    if (json[@"tilt"]) {
+        _tilt = json[@"tilt"];
+    }
+    if (json[@"bearing"]) {
+        _bearing = json[@"bearing"];
+    }
+
     
 }
 
@@ -101,10 +114,18 @@ RCT_EXPORT_METHOD(componentDidMount:(nonnull NSNumber*) reactTag) {
             return;
         }
         RNMWZMapView* mv = (RNMWZMapView*)view;
+        mv.tilt = self.tilt;
+        mv.bearing = self.bearing;
         mv.mapView = [[MWZMapView alloc] initWithFrame:CGRectZero options:mv.mapOptions mapwizeConfiguration:mv.mapwizeConfiguration];
         mv.mapView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
         mv.mapView.delegate = mv;
+        mv.mapView.mapboxDelegate = mv;
+        if (!self.compassEnabled) {
+            mv.mapView.mapboxMapView.compassView.compassVisibility = MGLOrnamentVisibilityHidden;
+        }
         [mv addSubview:mv.mapView];
+        
+        
     }];
 }
 

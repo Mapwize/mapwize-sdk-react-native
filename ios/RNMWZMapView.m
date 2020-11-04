@@ -360,4 +360,20 @@
     return navigationInfo.locationDelta > maxDistanceDouble;
 }
 
+
+- (void)mapViewDidFinishLoadingMap:(MGLMapView *)mapView {
+    if (self.tilt && !self.bearing) {
+        self.bearing = @0;
+    }
+    if (!self.tilt && self.bearing) {
+        self.tilt = @0;
+    }
+    if (self.tilt && self.bearing) {
+        MGLMapCamera* camera = [MGLMapCamera cameraLookingAtCenterCoordinate:self.mapView.mapboxMapView.centerCoordinate altitude:self.mapView.mapboxMapView.camera.altitude pitch:[self.tilt doubleValue] heading:[self.bearing doubleValue]];
+        [self.mapView.mapboxMapView setCamera:camera animated:NO];
+        self.tilt = nil;
+        self.bearing = nil;
+    }
+}
+
 @end
