@@ -1377,6 +1377,9 @@ export class MapOptions {
   restrictContentToVenueIds?: Array<string>
   restrictContentToOrganizationId?: string
   logoClickable?: boolean
+  tilt?: number
+  bearing?: number
+  compassEnabled?: boolean = true
   constructor() {}
   setFloor(floor: number): MapOptions {
     this.floor = floor
@@ -1412,6 +1415,18 @@ export class MapOptions {
   }
   setLogoClickable(logoClickable: boolean): MapOptions {
     this.logoClickable = logoClickable
+    return this
+  }
+  setTilt(tilt: number): MapOptions {
+    this.tilt = tilt
+    return this
+  }
+  setBearing(bearing: number): MapOptions {
+    this.bearing = bearing
+    return this
+  }
+  setCompassEnabled(compassEnabled: boolean): MapOptions {
+    this.compassEnabled = compassEnabled
     return this
   }
 }
