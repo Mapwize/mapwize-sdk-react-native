@@ -1,5 +1,9 @@
 # Mapwize SDK for React Native Changelog
 
+## Version 1.0.2
+
+- Fixing a bug in MapOptions
+
 ## Version 1.0.1
 
 - Adding the tilt, the bearing and the compass options to the MapOptions

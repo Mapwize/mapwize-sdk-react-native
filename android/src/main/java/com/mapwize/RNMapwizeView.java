@@ -95,7 +95,7 @@ public class RNMapwizeView extends FrameLayout {
   private MapOptions mapOptions = null;
   private Double tilt = null;
   private Double bearing = null;
-  private boolean compassEnabled =  false;
+  private boolean compassEnabled =  true;
 
   private int viewLifecycleStep = LIFECYCLESTEP_NOT_STARTED, mapviewLifecycleStep;
   private HashMap<String, Style> placesStyles;
@@ -214,7 +214,7 @@ public class RNMapwizeView extends FrameLayout {
     this.mapwizeContext = mapwizeContext;
   }
 
-  protected void setMapOptions(MapOptions mapOptions, double tilt, double bearing, boolean compassEnabled) {
+  protected void setMapOptions(MapOptions mapOptions, Double tilt, Double bearing, boolean compassEnabled) {
     this.mapOptions = mapOptions;
     this.tilt = tilt;
     this.bearing = bearing;
@@ -255,6 +255,10 @@ public class RNMapwizeView extends FrameLayout {
       mapwizeView.getMapAsync((_mapwizeMap) -> {
         mapwizeMap = _mapwizeMap;
 
+        if (!this.compassEnabled) {
+          mapwizeMap.getMapboxMap().getUiSettings().setCompassEnabled(false);
+        }
+
         if (this.tilt != null || this.bearing != null) {
           CameraPosition cameraPosition = mapwizeMap.getMapboxMap().getCameraPosition();
           CameraPosition.Builder builder = new CameraPosition.Builder(cameraPosition);
@@ -267,9 +271,6 @@ public class RNMapwizeView extends FrameLayout {
           mapwizeMap.getMapboxMap().setCameraPosition(builder.build());
         }
 
-        if (!this.compassEnabled) {
-          mapwizeMap.getMapboxMap().getUiSettings().setCompassEnabled(false);
-        }
 
         mapwizeMap.addOnClickListener(clickEvent -> sendEventToJS(onClickEvent_event, clickEvent));
         mapwizeMap.addOnLongClickListener(clickEvent -> sendEventToJS(onLongClickEvent_event, clickEvent));
