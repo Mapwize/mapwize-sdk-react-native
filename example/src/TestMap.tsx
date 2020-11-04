@@ -46,6 +46,9 @@ const placeId = '5bc49413bf0ed600114db1f0'
 const mapOptions: MapOptions = new MapOptions()
   .setCenterOnVenueId(venueId)
   .setRestrictContentToVenueIds([venueId])
+  .setTilt(45)
+  .setBearing(237)
+  .setCompassEnabled(true)
 
 interface IState {
   promotedPlaces: (Place | PlacePreview | Placelist)[] | undefined

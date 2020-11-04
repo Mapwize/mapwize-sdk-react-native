@@ -135,7 +135,10 @@ public class MapwizeViewManager extends SimpleViewManager<RNMapwizeView> {
   @ReactProp(name = "mapOptions")
   public void setMapOptions(RNMapwizeView rnMapView, ReadableMap options) {
     MapOptions mapOptions = (MapOptions) RNMapUtil.objectFromRNMap(options);
-    rnMapView.setMapOptions(mapOptions);
+    double tilt = options.getDouble("tilt");
+    double bearing = options.getDouble("bearing");
+    boolean compassEnabled = options.getBoolean("compassEnabled");
+    rnMapView.setMapOptions(mapOptions, tilt, bearing, compassEnabled);
   }
 
   @ReactProp(name = "mapDirection")
