@@ -52,6 +52,7 @@ The `MapwizeMap` component requires at least a MapwizeConfiguration props. The M
 const mapConfig = new MapwizeConfiguration('YOUR_API_KEY');
 render() {
     return <MapwizeMap
+        style={{flex: 1}}
         mapwizeConfiguration={mapConfig}/>
 }
 
@@ -67,6 +68,7 @@ You can use the `MapwizeViewRef` returned by the `onMapLoaded` property to run a
 const mapConfig = new MapwizeConfiguration('YOUR_API_KEY');
 render() {
     return <MapwizeMap
+        style={{flex: 1}}
         mapwizeConfiguration={mapConfig}
         onMapLoaded={(mapwizeMap: MapwizeViewRef) => mapwizeMap.setFloor(3)}
       />
