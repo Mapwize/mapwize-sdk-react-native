@@ -238,6 +238,18 @@ public class MapwizeViewManager extends SimpleViewManager<RNMapwizeView> {
           rnMapView.centerOn(promiseId, object, zoom, animated);
           break;
         }
+        case "zoomTo": {
+          Double zoom = 18.0;
+          if (!args.isNull(1)) {
+            zoom = args.getDouble(1);
+          }
+          rnMapView.zoomTo(promiseId, zoom);
+          break;
+        }
+        case "getZoom": {
+          rnMapView.sendPromiseResultToJS(promiseId, true, rnMapView.getZoom());
+          break;
+        }
         case "setFloor" : {
           rnMapView.setFloor(promiseId, args.getDouble(1));
           break;
