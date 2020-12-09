@@ -37,7 +37,7 @@ import MapwizeMap, {
 } from 'mapwize-sdk-react-native'
 const timeBetweenAutomaticTests = 3000
 const mapwizeConfiguration: MapwizeConfiguration = new MapwizeConfiguration(
-  '47aabfedfe66c0cf4a5ebe0c0bdb6d0d'
+  'MapwizeDevAPIKEY',
 )
 const mapwizeApi: MapwizeApi = CreateMapwizeAPI(mapwizeConfiguration)
 const venueId = '56b20714c3fa800b00d8f0b5'
@@ -384,6 +384,23 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
       userLocation: undefined,
     })
     resolve(null)
+  }
+  zoomToTest = (resolve: (data: any) => void) => {
+    this.state.strongRef?.zoomTo(14)
+    resolve(true)
+  }
+  getZoomTest = (
+    resolve: (data: any) => void,
+    reject: (data: any) => void
+  ) => {
+    this.state.strongRef?.getZoom().then(
+      (zoom: Number) => {
+        showAlert('Got Zoom', zoom, resolve)
+      },
+      (error) => {
+        reject("Can't get zoom " + error.message)
+      }
+    )
   }
   getTests = () => {
     // eslint-disable-next-line consistent-this

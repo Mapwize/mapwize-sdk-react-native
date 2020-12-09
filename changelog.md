@@ -1,5 +1,9 @@
 # Mapwize SDK for React Native Changelog
 
+## Version 1.0.3
+
+- Adding getZoom and zoomTo methods
+
 ## Version 1.0.2
 
 - Fixing a bug in MapOptions
