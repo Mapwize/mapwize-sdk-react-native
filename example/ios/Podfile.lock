@@ -25,7 +25,7 @@ PODS:
   - Mapbox-iOS-SDK (5.9.0):
     - MapboxMobileEvents (= 0.10.2)
   - MapboxMobileEvents (0.10.2)
-  - mapwize-sdk-react-native (0.0.2):
+  - mapwize-sdk-react-native (0.0.3):
     - ManualIndoorLocationProvider
     - MapwizeSDK (~> 3.2.1)
     - React
@@ -364,7 +364,7 @@ SPEC CHECKSUMS:
   ManualIndoorLocationProvider: d88640a41b7ab0208de85e4197e8883afa2520f3
   Mapbox-iOS-SDK: a5915700ec84bc1a7f8b3e746d474789e35b7956
   MapboxMobileEvents: 2bc0ca2eedb627b73cf403258dce2b2fa98074a6
-  mapwize-sdk-react-native: b3484d3cc0a31b753f05eb5dd9d9c25b366bde50
+  mapwize-sdk-react-native: 48d432b5330cd814ea7492849e8de43edb7f47fe
   MapwizeSDK: 85eae96e4d75260b3ca0f07aac8998230b60334e
   RCTRequired: cec6a34b3ac8a9915c37e7e4ad3aa74726ce4035
   RCTTypeSafety: 93006131180074cffa227a1075802c89a49dd4ce

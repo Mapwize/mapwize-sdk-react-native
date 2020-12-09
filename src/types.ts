@@ -255,6 +255,16 @@ export interface MapwizeViewRef {
    * Get the accessible direction mode for the venue / universe currently displayed
    */
   getDirectionModes: () => Promise<DirectionMode[]>
+
+  /**
+   * Zoom to the specified zoom level
+   */
+  zoomTo: (zoom: Number) => void
+
+  /**
+   * Get the current zoom level
+   */
+  getZoom: () => Promise<Number>
 }
 
 /*

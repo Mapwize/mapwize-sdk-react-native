@@ -468,5 +468,41 @@ RCT_EXPORT_METHOD(setFollowUserMode:(nonnull NSNumber*) reactTag
     }];
 }
 
+RCT_EXPORT_METHOD(getZoom:(nonnull NSNumber*) reactTag
+                  withResolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+    
+    [self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *,UIView *> *viewRegistry) {
+        UIView *view = viewRegistry[reactTag];
+        if (!view || ![view isKindOfClass:[RNMWZMapView class]]) {
+            RCTLogError(@"Cannot find NativeView with tag #%@", reactTag);
+            return;
+        }
+        
+        RNMWZMapView* mv = (RNMWZMapView*)view;
+        resolve([NSNumber numberWithDouble:mv.mapView.mapboxMapView.zoomLevel]);
+        //resolve([MWZSerializer serializeFollowUserMode:[mv.mapView getFollowUserMode]]);
+    }];
+}
+
+RCT_EXPORT_METHOD(zoomTo:(nonnull NSNumber*) reactTag
+                  zoomLevel:(nonnull NSNumber*) zoomLevel
+                  withResolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+    
+    [self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *,UIView *> *viewRegistry) {
+        UIView *view = viewRegistry[reactTag];
+        if (!view || ![view isKindOfClass:[RNMWZMapView class]]) {
+            RCTLogError(@"Cannot find NativeView with tag #%@", reactTag);
+            return;
+        }
+        
+        RNMWZMapView* mv = (RNMWZMapView*)view;
+        [mv.mapView.mapboxMapView setZoomLevel:zoomLevel.doubleValue animated:YES];
+        
+        resolve(@{});
+    }];
+}
+
 
 @end
