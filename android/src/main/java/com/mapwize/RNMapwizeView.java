@@ -13,6 +13,8 @@ import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
+import com.mapbox.mapboxsdk.camera.CameraUpdate;
+import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 
@@ -438,7 +440,8 @@ public class RNMapwizeView extends FrameLayout {
       CameraPosition cameraPosition = new CameraPosition.Builder(mapwizeMap.getMapboxMap().getCameraPosition())
         .zoom(zoom)
         .build();
-      mapwizeMap.getMapboxMap().setCameraPosition(cameraPosition);
+      CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+      mapwizeMap.getMapboxMap().animateCamera(cameraUpdate, 300);
       sendPromiseResultToJS(promiseId, true, null);
     });
   }
