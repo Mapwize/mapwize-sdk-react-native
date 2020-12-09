@@ -403,6 +403,9 @@ public class RNMapwizeView extends FrameLayout {
   public Floor getFloor() {
     return mapwizeMap.getFloor();
   }
+  public Double getZoom() {
+    return mapwizeMap.getMapboxMap().getCameraPosition().zoom;
+  }
 
   @SuppressLint("MissingPermission")
   public void setUserLocation(LatLngFloor userLocation) {
@@ -429,6 +432,15 @@ public class RNMapwizeView extends FrameLayout {
       }
     }
 
+  }
+  public void zoomTo(int promiseId, Double zoom) {
+    mapwizeView.post(() -> {
+      CameraPosition cameraPosition = new CameraPosition.Builder(mapwizeMap.getMapboxMap().getCameraPosition())
+        .zoom(zoom)
+        .build();
+      mapwizeMap.getMapboxMap().setCameraPosition(cameraPosition);
+      sendPromiseResultToJS(promiseId, true, null);
+    });
   }
 
   public void centerOn(int promiseId, Object object, Double zoom, Boolean animated) {
