@@ -33,6 +33,7 @@ import java.util.Map;
 import io.indoorlocation.core.IndoorLocation;
 import io.mapwize.mapwizesdk.api.ApiFilter;
 import io.mapwize.mapwizesdk.api.Direction;
+import io.mapwize.mapwizesdk.api.DirectionMode;
 import io.mapwize.mapwizesdk.api.DirectionPointWrapper;
 import io.mapwize.mapwizesdk.api.DirectionPointWrapperAndDistance;
 import io.mapwize.mapwizesdk.api.DistanceResponse;
@@ -113,6 +114,8 @@ public class RNMapUtil {
           to = readJsonObject(Serializer.serializeApiFilter((ApiFilter) from));
         } else if (from instanceof SearchParams) {
           to = readJsonObject(Serializer.serializeSearchParams((SearchParams) from));
+        } else if (from instanceof DirectionMode) {
+          to = readJsonObject(Serializer.serializeDirectionMode((DirectionMode) from));
         } else if (from instanceof Direction) {
           to = readJsonObject(Serializer.serializeDirectionRN((Direction) from));
         } else if (from instanceof DirectionPointWrapperAndDistance) {
