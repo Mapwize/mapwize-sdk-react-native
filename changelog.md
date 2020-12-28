@@ -1,5 +1,9 @@
 # Mapwize SDK for React Native Changelog
 
+## Version 1.0.4
+
+- Fixing `getDirectionModes` returns `null` values bug.
+
 ## Version 1.0.3
 
 - Adding getZoom and zoomTo methods
