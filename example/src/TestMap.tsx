@@ -132,6 +132,19 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
       }
     )
   }
+  getDirectionModesTest = (
+    resolve: (data: any) => void,
+    reject: () => void
+  ) => {
+    this.state.strongRef?.getDirectionModes().then(
+      (modes) => {
+        showAlert('Got Direction Modes', modes, resolve)
+      },
+      (error) => {
+        showAlert("Can't get modes", error.message, reject)
+      }
+    )
+  }
   centerOnVenueTest = (resolve: (data: any) => void, reject: () => void) => {
     mapwizeApi.getVenue(venueId).then(
       (venue: Venue) => {
@@ -477,6 +490,9 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
             }
             onVenueEnter={(venue: Venue) =>
               this.setState({ venueEnter: venue, venueExit: undefined })
+            }
+            onDirectionModesChange={(directionModes) =>
+              console.log(JSON.stringify(directionModes))
             }
             userLocation={this.state.userLocation}
             onFloorChange={(floor: Floor) => this.setState({ floor })}
