@@ -6,7 +6,6 @@ buildscript {
         minSdkVersion = 21
         compileSdkVersion = 28
         targetSdkVersion = 28
-        mapwize_sdk_version = "3.5.+"
         indoor_location_version = '1.0.5'
     }
     repositories {
