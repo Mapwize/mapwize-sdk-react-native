@@ -216,6 +216,17 @@ public class MapwizeViewManager extends SimpleViewManager<RNMapwizeView> {
   }
 
 
+  @ReactProp(name = "selectedPlace")
+  public void setSelectedPlaces(RNMapwizeView rnMapView, ReadableMap options) {
+    if (options == null) {
+      rnMapView.unselectPlace();
+      return;
+    }
+    Object object = (Object) RNMapUtil.objectFromRNMap(options);
+    rnMapView.selectPlace(object);
+  }
+
+
   @Override
   public void receiveCommand(@NonNull RNMapwizeView rnMapView, String commandId, @Nullable ReadableArray args) {
     int promiseId = args.getInt(0);
