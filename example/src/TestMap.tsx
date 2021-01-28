@@ -51,6 +51,7 @@ const mapOptions: MapOptions = new MapOptions()
   .setCompassEnabled(false)
 
 interface IState {
+  selectedPlace: Place | PlacePreview | undefined
   promotedPlaces: (Place | PlacePreview | Placelist)[] | undefined
   strongRef: MapwizeViewRef | undefined
   tests: any
@@ -303,6 +304,25 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     })
     resolve(null)
   }
+  selectPlaceTest = (
+    resolve: (data: any) => void,
+    reject: (data: any) => void
+  ) => {
+    mapwizeApi.getPlace(placeId).then(
+      (place: Place) => {
+        this.state.strongRef?.centerOn(place)
+        this.setState({ selectedPlace: place })
+        resolve(place)
+      },
+      (error) => reject("Can't getVenue " + error.message)
+    )
+  }
+  removeSelectedPlacesTest = (resolve: (data: any) => void) => {
+    this.setState({
+      selectedPlace: undefined,
+    })
+    resolve(null)
+  }
   setDirectionTest = (
     resolve: (data: any) => void,
     reject: (data: any) => void
@@ -479,12 +499,16 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
             }}
             onMapClick={(clickEvent: ClickEvent) => {
               console.log(clickEvent.latLngFloor)
-              this.setState({ userLocation: clickEvent.latLngFloor })
+              this.setState({
+                userLocation: clickEvent.latLngFloor,
+                selectedPlace: clickEvent.placePreview,
+              })
             }}
             mapDirection={this.state.directionProp}
             markers={this.state.markersProp}
             placeStyles={this.state.placeStyles}
             promotedPlaces={this.state.promotedPlaces}
+            selectedPlace={this.state.selectedPlace}
             onVenueExit={(venue: Venue) =>
               this.setState({ venueExit: venue, venueEnter: undefined })
             }

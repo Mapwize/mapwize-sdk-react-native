@@ -294,6 +294,10 @@ export interface MapwizeViewProps {
    */
   promotedPlaces?: (Place | PlacePreview | Placelist)[] | undefined
   /**
+   * Place that is currently selected on the map
+   */
+  selectedPlace?: Place | PlacePreview | undefined
+  /**
    * Custom place styles
    */
   placeStyles?: PlaceStyleProp[] | undefined

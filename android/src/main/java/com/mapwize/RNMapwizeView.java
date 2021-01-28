@@ -696,4 +696,18 @@ public class RNMapwizeView extends FrameLayout {
   public void removePlaceStyles() {
     mapwizeView.post(() -> mapwizeMap.removePlaceStyles());
   }
+
+  public void unselectPlace() {
+    mapwizeView.post(() -> mapwizeMap.unselectPlace());
+  }
+
+  public void selectPlace(Object object) {
+    mapwizeView.post(() -> {
+      if (object instanceof  Place){
+        mapwizeMap.selectPlace((Place) object);
+      }else if (object instanceof  PlacePreview){
+        mapwizeMap.selectPlace((PlacePreview) object);
+      }
+    });
+  }
 }
