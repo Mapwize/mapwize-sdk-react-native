@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSDictionary* navigation;
 @property (nonatomic) NSArray* markers;
 @property (nonatomic) NSDictionary<NSString*, MWZStyle*>* placeStyles;
+@property (nonatomic) NSDictionary* selectedPlace;
 @property (nonatomic) NSArray* promotedPlaces;
 @property (nonatomic) MWZLatLngFloor* userLocation;
 

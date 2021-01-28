@@ -18,6 +18,6 @@ Pod::Spec.new do |s|
   
 
   s.dependency "React"
-  s.dependency "MapwizeSDK", '~>3.2.1'
+  s.dependency "MapwizeSDK", '~>3.3.0'
   s.dependency "ManualIndoorLocationProvider"
 end

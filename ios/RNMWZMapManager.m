@@ -74,6 +74,10 @@ RCT_CUSTOM_VIEW_PROPERTY(promotedPlaces, NSArray, RNMWZMapView) {
     [view setPromotedPlaces:json];
 }
 
+RCT_CUSTOM_VIEW_PROPERTY(selectedPlace, NSDictionary, RNMWZMapView) {
+    [view setSelectedPlace:json];
+}
+
 RCT_CUSTOM_VIEW_PROPERTY(userLocation, MWZLatLngFloor, RNMWZMapView) {
     MWZLatLngFloor* llf = [MWZApiResponseParser parseLatLngFloor:json];
     [view setUserLocation:llf];

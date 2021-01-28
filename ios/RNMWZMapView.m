@@ -145,6 +145,23 @@
     }
 }
 
+- (void) setSelectedPlace:(NSDictionary *)dic {
+    _selectedPlace = dic;
+    if (dic) {
+        if ([dic[@"objectClass"] isEqualToString:@"Place"]) {
+            MWZPlace* place = [MWZApiResponseParser parsePlace:dic];
+            [_mapView selectPlace:place];
+        }
+        if ([dic[@"objectClass"] isEqualToString:@"PlacePreview"]) {
+            MWZPlacePreview* placePreview = [MWZApiResponseParser parsePlacePreview:dic];
+            [_mapView selectPlacePreview:placePreview];
+        }
+    }
+    else {
+        [_mapView unselectPlace];
+    }
+}
+
 - (void) setUserLocation:(MWZLatLngFloor *)userLocation {
     _userLocation = userLocation;
     if (!_userLocation && _manualLocationProvider) {
