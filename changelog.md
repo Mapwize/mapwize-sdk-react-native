@@ -2,9 +2,14 @@
 
 ## Version 1.0.5
 
+- Fixing gradle sdk version not found.
+
+- ## Version 1.0.5
+
 - Updating iOS Mapwize SDK to 3.3.0.
 - Updating Android Mapwize SDK to 3.5.1.
 - Adding selectedPlace Prop.
+  
 ## Version 1.0.4
 
 - Fixing `getDirectionModes` returns `null` values bug.
