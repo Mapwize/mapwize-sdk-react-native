@@ -1,10 +1,14 @@
 # Mapwize SDK for React Native Changelog
 
-## Version 1.0.5
+## Version 1.0.7
+
+- Fixing booleans values not sent to RN.
+
+## Version 1.0.6
 
 - Fixing gradle sdk version not found.
 
-- ## Version 1.0.5
+## Version 1.0.5
 
 - Updating iOS Mapwize SDK to 3.3.0.
 - Updating Android Mapwize SDK to 3.5.1.
