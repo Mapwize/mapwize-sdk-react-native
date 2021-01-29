@@ -393,7 +393,9 @@ public class RNMapUtil {
       Object value = jsonObject.get(key);
       if (value instanceof Float || value instanceof Double) {
         to.putDouble(key, jsonObject.getDouble(key));
-      } else if (value instanceof Number) {
+      } else if (value instanceof Boolean) {
+        to.putBoolean(key, jsonObject.getBoolean(key));
+      }  else if (value instanceof Number) {
         to.putInt(key, jsonObject.getInt(key));
       } else if (value instanceof String) {
         to.putString(key, jsonObject.getString(key));
@@ -415,6 +417,8 @@ public class RNMapUtil {
         to.pushDouble(jsonArray.getDouble(i));
       } else if (value instanceof Number) {
         to.pushInt(jsonArray.getInt(i));
+      } else if (value instanceof Boolean) {
+        to.pushBoolean(jsonArray.getBoolean(i));
       } else if (value instanceof String) {
         to.pushString(jsonArray.getString(i));
       } else if (value instanceof JSONObject) {
