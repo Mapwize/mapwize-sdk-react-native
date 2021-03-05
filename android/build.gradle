@@ -116,14 +116,22 @@ repositories {
     )
   }
 }
-
+Properties localProps = new Properties()
+try {
+  File file = new File('local.properties')
+  localProps.load(new FileInputStream(file))
+}catch (Exception e) {}
 dependencies {
   // noinspection GradleDynamicVersion
   api 'com.facebook.react:react-native:+'
   implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
-  implementation ("io.mapwize.sdk:mapwize-sdk:3.5.+")
-  implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:8.4.0'
-  implementation('com.mapbox.mapboxsdk:mapbox-android-services:2.2.9')
+  if (localProps.getProperty('local_sdk') != null && localProps.getProperty('local_sdk').toBoolean()) {
+    implementation project(path: ':mapwize-sdk')
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:8.4.0'
+    implementation('com.mapbox.mapboxsdk:mapbox-android-services:2.2.9@aar')
+  } else {
+    implementation ("io.mapwize.sdk:mapwize-sdk:3.6.+")
+  }
 
   implementation 'com.github.IndoorLocation:gps-indoor-location-provider-android:1.0.4'
   implementation "com.github.IndoorLocation:indoor-location-android:1.0.5"

@@ -4,3 +4,15 @@ include ':app'
 
 include ':mapwize'
 project(':mapwize').projectDir = new File(rootProject.projectDir, '../../android')
+
+
+Properties localProps = new Properties()
+try {
+  File file = new File('local.properties')
+  localProps.load(new FileInputStream(file))
+}catch (Exception e) {}
+
+if (localProps.getProperty('local_sdk') != null && localProps.getProperty('local_sdk').toBoolean()) {
+  include "mapwize-sdk"
+  project(":mapwize-sdk").projectDir = new File("../../../../android/mapwize-sdk-android/mapwize-sdk/")
+}
