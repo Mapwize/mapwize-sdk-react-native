@@ -55,6 +55,7 @@ import static com.mapwize.MapwizeViewManager.onFloorWillChange_event;
 import static com.mapwize.MapwizeViewManager.onFloorsChange_event;
 import static com.mapwize.MapwizeViewManager.onFollowUserModeChange_event;
 import static com.mapwize.MapwizeViewManager.onLanguageChange_event;
+import static com.mapwize.MapwizeViewManager.onLanguagesChange_event;
 import static com.mapwize.MapwizeViewManager.onLongClickEvent_event;
 import static com.mapwize.MapwizeViewManager.onMapLoaded_event;
 import static com.mapwize.MapwizeViewManager.onMarkerClick_event;
@@ -351,6 +352,7 @@ public class RNMapwizeView extends FrameLayout {
 
         mapwizeMap.addOnFollowUserModeChangeListener(followUserMode -> sendEventToJS(onFollowUserModeChange_event, followUserMode));
         mapwizeMap.addOnLanguageChangeListener(language -> sendEventToJS(onLanguageChange_event, language));
+        mapwizeMap.addOnLanguagesChangeListener(languages -> sendEventToJS(onLanguagesChange_event, languages));
         mapwizeMap.addOnDirectionModesChangeListener(directionModes -> sendEventToJS(onDirectionModesChange_event, directionModes));
         mapboxMap = mapwizeMap.getMapboxMap();
 //        mapboxMap.addOnCameraIdleListener(() -> sendEventToJS(onMapIdle_event, "mapIdle"));

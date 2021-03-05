@@ -377,6 +377,10 @@ export interface MapwizeViewProps {
    */
   onFollowUserModeChange?: (followUserMode: FollowUserMode) => void
   /**
+   * Called on entering the venue
+   */
+  onLanguagesChange?: (languages: string[]) => void
+  /**
    * Called when the current language changed
    */
   onLanguageChange?: (language: string) => void
