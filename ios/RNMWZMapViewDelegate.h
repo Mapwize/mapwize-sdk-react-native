@@ -198,6 +198,8 @@ Called when the universes available for the displayed venue failed to change.
 - (BOOL)mapView:(RNMWZMapView *_Nonnull) mapView
 shouldRecomputeNavigation:(MWZNavigationInfo* _Nonnull) navigationInfo;
 
+- (BOOL)mapView:(RNMWZMapView *_Nonnull) mapView bearingDidChange:(NSNumber*)bearing;
+
 @end
 
 #endif

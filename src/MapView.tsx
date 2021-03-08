@@ -140,6 +140,9 @@ class MapView
       ReactNative.findNodeHandle(this),
       []
     )
+  resetNorth = (): void => {
+    this.command.dispatch('resetNorth', ReactNative.findNodeHandle(this), [])
+  }
 
   render() {
     const {
@@ -167,6 +170,7 @@ class MapView
       onNavigationStop,
       onNavigationUpdate,
       onNavigationWillStart,
+      onCameraChange,
       ...rest
     } = this.props
     const propEvents: any = {
@@ -193,6 +197,7 @@ class MapView
       onNavigationStop: transform(onNavigationStop),
       onNavigationUpdate: transform(onNavigationUpdate),
       onNavigationWillStart: transform(onNavigationWillStart),
+      onCameraChange: transform(onCameraChange),
     }
     return (
       <NativeView

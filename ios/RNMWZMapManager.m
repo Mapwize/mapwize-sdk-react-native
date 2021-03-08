@@ -107,6 +107,7 @@ RCT_EXPORT_VIEW_PROPERTY(onNavigationStart, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onNavigationStop, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onNavigationUpdate, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onNavigationError, RCTBubblingEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onCameraChange, RCTBubblingEventBlock)
 
 #pragma mark RNViewMethods
 
@@ -504,6 +505,28 @@ RCT_EXPORT_METHOD(zoomTo:(nonnull NSNumber*) reactTag
         
         RNMWZMapView* mv = (RNMWZMapView*)view;
         [mv.mapView.mapboxMapView setZoomLevel:zoomLevel.doubleValue animated:YES];
+        
+        resolve(@{});
+    }];
+}
+
+RCT_EXPORT_METHOD(resetNorth:(nonnull NSNumber*) reactTag
+                  withResolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+    
+    [self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *,UIView *> *viewRegistry) {
+        UIView *view = viewRegistry[reactTag];
+        if (!view || ![view isKindOfClass:[RNMWZMapView class]]) {
+            RCTLogError(@"Cannot find NativeView with tag #%@", reactTag);
+            return;
+        }
+        
+        RNMWZMapView* mv = (RNMWZMapView*)view;
+        [mv.mapView.mapboxMapView resetNorth];
+        MGLMapCamera* camera = mv.mapView.mapboxMapView.camera;
+        camera.heading = 0;
+        camera.pitch = 0;
+        [mv.mapView.mapboxMapView setCamera:camera animated:YES];
         
         resolve(@{});
     }];

@@ -269,6 +269,11 @@ export interface MapwizeViewRef {
    * Get the current zoom level
    */
   getZoom: () => Promise<Number>
+
+  /**
+   * Reset North
+   */
+  resetNorth: () => void
 }
 
 /*
@@ -412,6 +417,10 @@ export interface MapwizeViewProps {
    * Called when something goes wrong with a navigation
    */
   onNavigationError?: (message: string) => void
+  /**
+   * Called when the map bearing changes
+   */
+  onCameraChange?: (camera: Camera) => void
 }
 
 /**
@@ -495,6 +504,14 @@ export class OfflineRegion {
     this.maxZoom = maxZoom
   }
 }
+
+export interface Camera {
+  zoomLevel: number
+  bearing: number
+  pitch: number
+  coordinate: LatLngFloor
+}
+
 /**
  * NavigationInfo contains information about the current Navigation such as the remaining distance, duration.
  * You should not create a Navigation info yourself.

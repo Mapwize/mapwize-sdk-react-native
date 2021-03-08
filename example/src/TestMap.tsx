@@ -433,6 +433,10 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
       }
     )
   }
+  resetNorthTest = (resolve: (data: any) => void) => {
+    this.state.strongRef?.resetNorth()
+    resolve(true)
+  }
   getTests = () => {
     // eslint-disable-next-line consistent-this
     const testClass: any = this
@@ -544,6 +548,9 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
             onNavigationError={(error) =>
               this.setState({ navigationEvent: 'Navigation error : ' + error })
             }
+            onCameraChange={(camera) => {
+              console.log(camera)
+            }}
           />
         </View>
         <View style={{ flex: 1 }}>

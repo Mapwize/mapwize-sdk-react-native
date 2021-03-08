@@ -61,6 +61,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) RCTBubblingEventBlock onNavigationUpdate;
 @property (nonatomic, copy) RCTBubblingEventBlock onNavigationError;
 
+@property (nonatomic, copy) RCTBubblingEventBlock onCameraChange;
+
 - (void) refreshProps;
 
 @end
