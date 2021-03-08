@@ -51,6 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) RCTBubblingEventBlock onFloorChangeError;
 
 @property (nonatomic, copy) RCTBubblingEventBlock onFollowUserModeChange;
+@property (nonatomic, copy) RCTBubblingEventBlock onLanguagesChange;
 @property (nonatomic, copy) RCTBubblingEventBlock onLanguageChange;
 @property (nonatomic, copy) RCTBubblingEventBlock onDirectionModesChange;
 

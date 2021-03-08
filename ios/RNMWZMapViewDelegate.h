@@ -151,6 +151,13 @@ Called when the universes available for the displayed venue failed to change.
 - (void)mapView:(RNMWZMapView *_Nonnull)mapView languageDidChange:(NSString* _Nonnull)language;
 
 /**
+ Called when the available languages change for the displayed venue
+ @param mapView the mapwize view that triggered the event
+ @param languages the available languages
+ */
+- (void)mapView:(RNMWZMapView *_Nonnull)mapView languagesDidChange:(NSArray<NSString*>* _Nonnull)languages;
+
+/**
  Called when the MWZMapView needs to display the user location. Use this method to display a custom
  user location view. Specifications about the MGLUserLocationAnnotationView can be found at https://docs.mapbox.com/ios/api/maps
  */

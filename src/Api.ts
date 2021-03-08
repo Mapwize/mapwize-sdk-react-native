@@ -31,6 +31,7 @@ export const createApi = (
     getMainFroms: getMainFroms(contextId),
     getMainSearches: getMainSearches(contextId),
     getPlacesForPlacelist: getPlacesForPlacelist(contextId),
+    getPlaceDetails: getPlaceDetails(contextId),
     getPlace: getPlace(contextId),
     getPlaceWithName: getPlaceWithName(contextId),
     getPlaceWithAlias: getPlaceWithAlias(contextId),
@@ -110,6 +111,9 @@ const getMainSearches = (contextId: string) => (venue: Venue) =>
 
 const getPlacesForPlacelist = (contextId: string) => (placelist: Placelist) =>
   RNMWZApi.getPlacesForPlacelist(contextId, placelist)
+
+const getPlaceDetails = (contextId: string) => (id: string) =>
+  RNMWZApi.getPlaceDetails(contextId, id)
 
 const getPlace = (contextId: string) => (id: string) =>
   RNMWZApi.getPlace(contextId, id)

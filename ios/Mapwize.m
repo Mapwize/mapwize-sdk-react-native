@@ -59,6 +59,20 @@ RCT_REMAP_METHOD(getPlaces,
     }];
 }
 
+RCT_REMAP_METHOD(getPlaceDetails,
+                  configId:(NSString*) configId
+                  placeId:(NSString*) placeId
+                 resolve:(RCTPromiseResolveBlock)resolve
+                 reject:(RCTPromiseRejectBlock)reject) {
+    MWZMapwizeConfiguration* configuration = _configById[configId];
+    id<MWZMapwizeApi> api = [MWZMapwizeApiFactory getApiWithMapwizeConfiguration:configuration];
+    [api getPlaceDetailsWithPlaceIdentifier:placeId success:^(MWZPlaceDetails * _Nonnull placeDetails) {
+        resolve([MWZSerializer serializePlaceDetails:placeDetails]);
+    } failure:^(NSError * _Nonnull error) {
+        reject(@"MapwizeModule", @"Unable to get placeDetails", nil);
+    }];
+}
+
 RCT_REMAP_METHOD(getPlace,
                   configId:(NSString*) configId
                   identifier:(NSString*) identifier

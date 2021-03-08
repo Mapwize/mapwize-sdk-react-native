@@ -328,6 +328,13 @@
     self.onLanguageChange(@{@"value": language});
 }
 
+-(void)mapView:(MWZMapView *)mapView languagesDidChange:(NSArray<NSString *> *)languages {
+    if (!_onLanguageChange) {
+        return;
+    }
+    self.onLanguagesChange(@{@"value": languages});
+}
+
 - (void)mapView:(MWZMapView *)mapView directionModesDidChange:(NSArray<MWZDirectionMode *> *)directionModes {
     if (!_onDirectionModesChange) {
         return;

@@ -23,6 +23,7 @@ import {
   Universe,
   Layer,
   DistanceResponse,
+  PlaceDetails,
 } from 'mapwize-sdk-react-native'
 const mapwizeConfiguration = new MapwizeConfiguration(
   '47aabfedfe66c0cf4a5ebe0c0bdb6d0d'
@@ -30,6 +31,7 @@ const mapwizeConfiguration = new MapwizeConfiguration(
 const api1: MapwizeApi = CreateMapwizeAPI(mapwizeConfiguration)
 const venueId = '56b20714c3fa800b00d8f0b5'
 const placeId = '5bc49413bf0ed600114db1f0'
+const mapwizePlaceId = '5d08d8a4efe1d20012809ee5'
 const layerId = '5ed12401f167b30016e2d61b'
 const placelistId = '5784fc5f7f2a900b0055f603'
 const apiKeyRestricted = '70cdc17a7590a2dcd7333ef5e09a5892'
@@ -487,6 +489,27 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
         }
       )
   }
+
+  getPlaceDetailsTest = (resolve: () => void, reject: () => void) => {
+    api1.getPlaceDetails(mapwizePlaceId).then(
+      (placeDetails: PlaceDetails) => {
+        console.log(placeDetails)
+        showAlert(
+          `getPlaceDetailsTest('${mapwizePlaceId}')`,
+          placeDetails,
+          resolve
+        )
+      },
+      (error) => {
+        showAlert(
+          `getPlaceDetailsTest('${mapwizePlaceId}') Failed`,
+          error.message,
+          reject
+        )
+      }
+    )
+  }
+
   getPlaceTest = (resolve: () => void, reject: () => void) => {
     api1.getPlace(placeId).then(
       (place: Place) => {
