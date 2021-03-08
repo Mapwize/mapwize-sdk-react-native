@@ -46,6 +46,7 @@ import io.mapwize.mapwizesdk.api.OfflineRegion;
 import io.mapwize.mapwizesdk.api.Organization;
 import io.mapwize.mapwizesdk.api.Parser;
 import io.mapwize.mapwizesdk.api.Place;
+import io.mapwize.mapwizesdk.api.PlaceDetails;
 import io.mapwize.mapwizesdk.api.Placelist;
 import io.mapwize.mapwizesdk.api.Route;
 import io.mapwize.mapwizesdk.api.SearchParams;
@@ -176,7 +177,9 @@ public class RNMapUtil {
           to = readJsonObject(Serializer.serializeNavigationInfo((NavigationInfo) from));
         } else if (from instanceof Place) {
           to = readJsonObject(Serializer.serializePlaceRN((Place) from));
-        } else if (Map.class.isAssignableFrom(from.getClass())) {
+        } else if (from instanceof PlaceDetails) {
+          to = readJsonObject(Serializer.serializePlaceDetailsRN((PlaceDetails) from));
+        }  else if (Map.class.isAssignableFrom(from.getClass())) {
           to = createMap();
           Map map = (Map) from;
           for (Iterator i = map.entrySet().iterator(); i.hasNext(); ) {
@@ -292,6 +295,8 @@ public class RNMapUtil {
             return io.mapwize.mapwizesdk.map.Parser.parsePlacePreview(jsonObject, null);
           case "Place":
             return Parser.parsePlaceRN(jsonObject);
+          case "PlaceDetails":
+            return Parser.parsePlaceDetailsRN(jsonObject);
           default:
             break;
         }

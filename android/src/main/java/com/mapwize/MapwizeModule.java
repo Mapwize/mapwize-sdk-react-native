@@ -26,6 +26,7 @@ import io.mapwize.mapwizesdk.api.Layer;
 import io.mapwize.mapwizesdk.api.MapwizeApiFactory;
 import io.mapwize.mapwizesdk.api.MapwizeObject;
 import io.mapwize.mapwizesdk.api.Place;
+import io.mapwize.mapwizesdk.api.PlaceDetails;
 import io.mapwize.mapwizesdk.api.Placelist;
 import io.mapwize.mapwizesdk.api.SearchParams;
 import io.mapwize.mapwizesdk.api.Universe;
@@ -308,6 +309,22 @@ public class MapwizeModule extends ReactContextBaseJavaModule {
       @Override
       public void onSuccess(@Nullable Place place) {
         acceptPromise(promise, RNMapUtil.toRNMap(place));
+      }
+
+      @Override
+      public void onFailure(@Nullable Throwable throwable) {
+        rejectPromise(promise, throwable);
+      }
+    });
+  }
+
+  @ReactMethod
+  public void getPlaceDetails(String contextId, String placeId, Promise promise) {
+    MapwizeContext context = getContext(contextId);
+    context.getApi().getPlaceDetails(placeId, new ApiCallback<PlaceDetails>() {
+      @Override
+      public void onSuccess(@Nullable PlaceDetails placeDetails) {
+        acceptPromise(promise, RNMapUtil.toRNMap(placeDetails));
       }
 
       @Override

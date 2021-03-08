@@ -67,7 +67,8 @@ public class MapwizeViewManager extends SimpleViewManager<RNMapwizeView> {
     onNavigationStart_event = "onNavigationStart",
     onNavigationUpdate_event = "onNavigationUpdate",
     onNavigationStop_event = "onNavigationStop",
-    onNavigationError_event = "onNavigationError";
+    onNavigationError_event = "onNavigationError",
+    onCameraChange_event = "onCameraChange";
   @Override
   public String getName() {
     return REACT_CLASS;
@@ -108,6 +109,7 @@ public class MapwizeViewManager extends SimpleViewManager<RNMapwizeView> {
     exportedEvents.put(onNavigationUpdate_event, MapBuilder.of(REGISTRATION_NAME, onNavigationUpdate_event));
     exportedEvents.put(onNavigationStop_event, MapBuilder.of(REGISTRATION_NAME, onNavigationStop_event));
     exportedEvents.put(onNavigationError_event, MapBuilder.of(REGISTRATION_NAME, onNavigationError_event));
+    exportedEvents.put(onCameraChange_event, MapBuilder.of(REGISTRATION_NAME, onCameraChange_event));
     return exportedEvents;
   }
 
@@ -261,6 +263,11 @@ public class MapwizeViewManager extends SimpleViewManager<RNMapwizeView> {
         }
         case "getZoom": {
           rnMapView.sendPromiseResultToJS(promiseId, true, rnMapView.getZoom());
+          break;
+        }
+        case "resetNorth": {
+          rnMapView.resetNorth();
+          rnMapView.sendPromiseResultToJS(promiseId, true, null);
           break;
         }
         case "setFloor" : {
