@@ -361,7 +361,7 @@ public class RNMapwizeView extends FrameLayout {
           Map<String, Object> cameraPosition = new HashMap<>();
           cameraPosition.put("zoomLevel", mapboxCameraPosition.zoom);
           cameraPosition.put("bearing", mapboxCameraPosition.bearing);
-          cameraPosition.put("pitch", mapboxCameraPosition.tilt);
+          cameraPosition.put("tilt", mapboxCameraPosition.tilt);
           LatLngFloor latLngFloor = new LatLngFloor(mapboxCameraPosition.target, mapwizeMap.getFloorNumber());
           cameraPosition.put("center", latLngFloor);
           sendEventToJS(onCameraChange_event, cameraPosition);
