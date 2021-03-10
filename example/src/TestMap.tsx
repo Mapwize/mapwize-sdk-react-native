@@ -425,7 +425,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
   }
   getZoomTest = (resolve: (data: any) => void, reject: (data: any) => void) => {
     this.state.strongRef?.getZoom().then(
-      (zoom: Number) => {
+      (zoom: number) => {
         showAlert('Got Zoom', zoom, resolve)
       },
       (error) => {

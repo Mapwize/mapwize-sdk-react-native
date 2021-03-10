@@ -129,9 +129,9 @@ class MapView
       ReactNative.findNodeHandle(this),
       []
     )
-  getZoom = (): Promise<Number> =>
+  getZoom = (): Promise<number> =>
     this.command.dispatch('getZoom', ReactNative.findNodeHandle(this), [])
-  zoomTo = (zoom: Number): void => {
+  zoomTo = (zoom: number): void => {
     this.command.dispatch('zoomTo', ReactNative.findNodeHandle(this), [zoom])
   }
   getDirectionModes = (): Promise<DirectionMode[]> =>

@@ -263,12 +263,12 @@ export interface MapwizeViewRef {
   /**
    * Zoom to the specified zoom level
    */
-  zoomTo: (zoom: Number) => void
+  zoomTo: (zoom: number) => void
 
   /**
    * Get the current zoom level
    */
-  getZoom: () => Promise<Number>
+  getZoom: () => Promise<number>
 
   /**
    * Reset North
