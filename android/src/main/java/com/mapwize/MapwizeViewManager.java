@@ -59,6 +59,7 @@ public class MapwizeViewManager extends SimpleViewManager<RNMapwizeView> {
     onClickEvent_event = "onMapClick",
     onLongClickEvent_event = "onLongClickEvent",
     onFollowUserModeChange_event = "onFollowUserModeChange",
+    onLanguagesChange_event = "onLanguagesChange",
     onLanguageChange_event = "onLanguageChange",
     onDirectionModesChange_event = "onDirectionModesChange",
 //    onMapIdle_event = "onMapIdle",
@@ -66,7 +67,8 @@ public class MapwizeViewManager extends SimpleViewManager<RNMapwizeView> {
     onNavigationStart_event = "onNavigationStart",
     onNavigationUpdate_event = "onNavigationUpdate",
     onNavigationStop_event = "onNavigationStop",
-    onNavigationError_event = "onNavigationError";
+    onNavigationError_event = "onNavigationError",
+    onCameraChange_event = "onCameraChange";
   @Override
   public String getName() {
     return REACT_CLASS;
@@ -98,6 +100,7 @@ public class MapwizeViewManager extends SimpleViewManager<RNMapwizeView> {
     exportedEvents.put(onClickEvent_event, MapBuilder.of(REGISTRATION_NAME, onClickEvent_event));
     exportedEvents.put(onLongClickEvent_event, MapBuilder.of(REGISTRATION_NAME, onLongClickEvent_event));
     exportedEvents.put(onFollowUserModeChange_event, MapBuilder.of(REGISTRATION_NAME, onFollowUserModeChange_event));
+    exportedEvents.put(onLanguagesChange_event, MapBuilder.of(REGISTRATION_NAME, onLanguagesChange_event));
     exportedEvents.put(onLanguageChange_event, MapBuilder.of(REGISTRATION_NAME, onLanguageChange_event));
     exportedEvents.put(onDirectionModesChange_event, MapBuilder.of(REGISTRATION_NAME, onDirectionModesChange_event));
 //    exportedEvents.put(onMapIdle_event, MapBuilder.of(REGISTRATION_NAME, onMapIdle_event));
@@ -106,6 +109,7 @@ public class MapwizeViewManager extends SimpleViewManager<RNMapwizeView> {
     exportedEvents.put(onNavigationUpdate_event, MapBuilder.of(REGISTRATION_NAME, onNavigationUpdate_event));
     exportedEvents.put(onNavigationStop_event, MapBuilder.of(REGISTRATION_NAME, onNavigationStop_event));
     exportedEvents.put(onNavigationError_event, MapBuilder.of(REGISTRATION_NAME, onNavigationError_event));
+    exportedEvents.put(onCameraChange_event, MapBuilder.of(REGISTRATION_NAME, onCameraChange_event));
     return exportedEvents;
   }
 
@@ -259,6 +263,11 @@ public class MapwizeViewManager extends SimpleViewManager<RNMapwizeView> {
         }
         case "getZoom": {
           rnMapView.sendPromiseResultToJS(promiseId, true, rnMapView.getZoom());
+          break;
+        }
+        case "resetNorth": {
+          rnMapView.resetNorth();
+          rnMapView.sendPromiseResultToJS(promiseId, true, null);
           break;
         }
         case "setFloor" : {

@@ -67,6 +67,7 @@ interface IState {
   universe: Universe | undefined
   floor: Floor
   language: string
+  languages: string
 }
 interface IProps {}
 export default class TestApi extends React.PureComponent<IProps, IState> {
@@ -432,6 +433,10 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
       }
     )
   }
+  resetNorthTest = (resolve: (data: any) => void) => {
+    this.state.strongRef?.resetNorth()
+    resolve(true)
+  }
   getTests = () => {
     // eslint-disable-next-line consistent-this
     const testClass: any = this
@@ -523,6 +528,9 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
             onUniverseChange={(universe: Universe) =>
               this.setState({ universe })
             }
+            onLanguagesChange={(languages: string[]) =>
+              this.setState({ languages: JSON.stringify(languages) })
+            }
             onLanguageChange={(language: string) => this.setState({ language })}
             mapNavigation={this.state.navigationProp}
             onNavigationWillStart={() =>
@@ -540,6 +548,9 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
             onNavigationError={(error) =>
               this.setState({ navigationEvent: 'Navigation error : ' + error })
             }
+            onCameraChange={(camera) => {
+              console.log(camera)
+            }}
           />
         </View>
         <View style={{ flex: 1 }}>
@@ -631,6 +642,9 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
             <Text style={{ padding: 4 }}>
               {'universe : ' +
                 (this.state.universe && this.state.universe.name)}
+            </Text>
+            <Text style={{ padding: 4 }}>
+              {'languages : ' + (this.state.languages && this.state.languages)}
             </Text>
             <Text style={{ padding: 4 }}>
               {'language : ' + (this.state.language && this.state.language)}

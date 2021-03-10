@@ -59,6 +59,10 @@ export interface MapwizeApi {
    */
   getMainSearches: (venue: Venue) => Promise<MapwizeObject[]>
   /**
+   * Get a place details using the place id
+   */
+  getPlaceDetails: (id: string) => Promise<PlaceDetails>
+  /**
    * Get a place using its id
    */
   getPlace: (id: string) => Promise<Place>
@@ -265,6 +269,11 @@ export interface MapwizeViewRef {
    * Get the current zoom level
    */
   getZoom: () => Promise<Number>
+
+  /**
+   * Reset North
+   */
+  resetNorth: () => void
 }
 
 /*
@@ -377,6 +386,10 @@ export interface MapwizeViewProps {
    */
   onFollowUserModeChange?: (followUserMode: FollowUserMode) => void
   /**
+   * Called on entering the venue
+   */
+  onLanguagesChange?: (languages: string[]) => void
+  /**
    * Called when the current language changed
    */
   onLanguageChange?: (language: string) => void
@@ -404,6 +417,10 @@ export interface MapwizeViewProps {
    * Called when something goes wrong with a navigation
    */
   onNavigationError?: (message: string) => void
+  /**
+   * Called when the map bearing changes
+   */
+  onCameraChange?: (camera: Camera) => void
 }
 
 /**
@@ -487,6 +504,14 @@ export class OfflineRegion {
     this.maxZoom = maxZoom
   }
 }
+
+export interface Camera {
+  zoomLevel: number
+  bearing: number
+  tilt: number
+  coordinate: LatLngFloor
+}
+
 /**
  * NavigationInfo contains information about the current Navigation such as the remaining distance, duration.
  * You should not create a Navigation info yourself.
@@ -1094,6 +1119,73 @@ export class Place implements MapwizeObject {
     this.placeTypeId = placeTypeId
     this.minZoom = minZoom
     this.maxZoom = maxZoom
+  }
+}
+
+export class PlaceDetails {
+  objectClass = 'PlaceDetails'
+  _id: string
+  name: string
+  floor: string
+  markerCoordinate: LatLngFloor
+  placetype: { name: string }
+  venue: any
+  style: any
+  data: any
+  translations: Translation[]
+  translation: (language: string) => Translation
+  universes: string[]
+  calendarEmail: string
+  photos: string[]
+  openingHours: { day: number; open: string; close: string }[]
+  phone: string
+  website: string
+  capacity: number
+  timezone: string
+  shareLink: string
+  calendarEvents: { day: number; start: Date; end: Date }[]
+  constructor(
+    _id: string,
+    name: string,
+    floor: string,
+    markerCoordinate: LatLngFloor,
+    placetype: { name: string },
+    venue: any,
+    style: any,
+    data: Map<string, any> | undefined,
+    translations: Translation[],
+    translation: (language: string) => Translation,
+    universes: string[],
+    calendarEmail: string,
+    photos: string[],
+    openingHours: { day: number; open: string; close: string }[],
+    phone: string,
+    website: string,
+    capacity: number,
+    timezone: string,
+    shareLink: string,
+    calendarEvents: { day: number; start: Date; end: Date }[]
+  ) {
+    this._id = _id
+    this.name = name
+    this.floor = floor
+    this.markerCoordinate = markerCoordinate
+    this.placetype = placetype
+    this.venue = venue
+    this.style = style
+    this.data = data
+    this.translations = translations
+    this.translation = translation
+    this.universes = universes
+    this.calendarEmail = calendarEmail
+    this.photos = photos
+    this.openingHours = openingHours
+    this.phone = phone
+    this.website = website
+    this.capacity = capacity
+    this.timezone = timezone
+    this.shareLink = shareLink
+    this.calendarEvents = calendarEvents
   }
 }
 

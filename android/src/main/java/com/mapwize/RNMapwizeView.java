@@ -20,6 +20,7 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,6 +48,7 @@ import io.mapwize.mapwizesdk.map.PlacePreview;
 import io.mapwize.mapwizesdk.map.VenuePreview;
 
 import static com.mapwize.MapwizeViewManager.MAPWIZE_EVENT;
+import static com.mapwize.MapwizeViewManager.onCameraChange_event;
 import static com.mapwize.MapwizeViewManager.onClickEvent_event;
 import static com.mapwize.MapwizeViewManager.onDirectionModesChange_event;
 import static com.mapwize.MapwizeViewManager.onFloorChangeError_event;
@@ -55,6 +57,7 @@ import static com.mapwize.MapwizeViewManager.onFloorWillChange_event;
 import static com.mapwize.MapwizeViewManager.onFloorsChange_event;
 import static com.mapwize.MapwizeViewManager.onFollowUserModeChange_event;
 import static com.mapwize.MapwizeViewManager.onLanguageChange_event;
+import static com.mapwize.MapwizeViewManager.onLanguagesChange_event;
 import static com.mapwize.MapwizeViewManager.onLongClickEvent_event;
 import static com.mapwize.MapwizeViewManager.onMapLoaded_event;
 import static com.mapwize.MapwizeViewManager.onMarkerClick_event;
@@ -351,11 +354,21 @@ public class RNMapwizeView extends FrameLayout {
 
         mapwizeMap.addOnFollowUserModeChangeListener(followUserMode -> sendEventToJS(onFollowUserModeChange_event, followUserMode));
         mapwizeMap.addOnLanguageChangeListener(language -> sendEventToJS(onLanguageChange_event, language));
+        mapwizeMap.addOnLanguagesChangeListener(languages -> sendEventToJS(onLanguagesChange_event, languages));
         mapwizeMap.addOnDirectionModesChangeListener(directionModes -> sendEventToJS(onDirectionModesChange_event, directionModes));
+        mapwizeMap.getMapboxMap().addOnCameraMoveListener(() -> {
+          CameraPosition mapboxCameraPosition = mapwizeMap.getMapboxMap().getCameraPosition();
+          Map<String, Object> cameraPosition = new HashMap<>();
+          cameraPosition.put("zoomLevel", mapboxCameraPosition.zoom);
+          cameraPosition.put("bearing", mapboxCameraPosition.bearing);
+          cameraPosition.put("tilt", mapboxCameraPosition.tilt);
+          LatLngFloor latLngFloor = new LatLngFloor(mapboxCameraPosition.target, mapwizeMap.getFloorNumber());
+          cameraPosition.put("center", latLngFloor);
+          sendEventToJS(onCameraChange_event, cameraPosition);
+        });
+
         mapboxMap = mapwizeMap.getMapboxMap();
 //        mapboxMap.addOnCameraIdleListener(() -> sendEventToJS(onMapIdle_event, "mapIdle"));
-
-
         onReady();
         sendEventToJS(onMapLoaded_event, null);
 
@@ -708,6 +721,17 @@ public class RNMapwizeView extends FrameLayout {
       }else if (object instanceof  PlacePreview){
         mapwizeMap.selectPlace((PlacePreview) object);
       }
+    });
+  }
+
+  public void resetNorth() {
+    mapwizeView.post(() -> {
+      CameraPosition cameraPosition = mapwizeMap.getMapboxMap().getCameraPosition();
+      CameraPosition.Builder builder = new CameraPosition.Builder(cameraPosition);
+      builder.tilt(0);
+      builder.bearing(0);
+      CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(builder.build());
+      mapwizeMap.getMapboxMap().animateCamera(cameraUpdate, 300);
     });
   }
 }
