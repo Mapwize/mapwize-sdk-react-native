@@ -1,5 +1,11 @@
 # Mapwize SDK for React Native Changelog
 
+## Version 1.0.9
+
+- Fixing floor object in `PlaceDetails`
+- Updating Mapwize Android SDK to `3.6.3` and Mapwize iOS SDK to `3.4.4`.
+- Using `number` instead of `Number`.
+
 ## Version 1.0.8
 
 - Adding place details API.

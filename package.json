@@ -1,6 +1,6 @@
 {
   "name": "mapwize-sdk-react-native",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Integrate Mapwize Indoor Maps & Wayfinding in your React Native apps",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
