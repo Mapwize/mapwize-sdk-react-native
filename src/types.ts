@@ -1126,7 +1126,7 @@ export class PlaceDetails {
   objectClass = 'PlaceDetails'
   _id: string
   name: string
-  floor: string
+  floor: any //You should use `floor.number` to access the floor number
   markerCoordinate: LatLngFloor
   placetype: { name: string }
   venue: any
