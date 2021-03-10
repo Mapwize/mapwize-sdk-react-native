@@ -1,5 +1,12 @@
 # Mapwize SDK for React Native Changelog
 
+## Version 1.0.8
+
+- Adding place details API.
+- Adding `onLanguagesChange` event.
+- Adding `resetNorth` method.
+- Adding `onCameraChange` event.
+
 ## Version 1.0.7
 
 - Fixing booleans values not sent to RN.
@@ -13,7 +20,7 @@
 - Updating iOS Mapwize SDK to 3.3.0.
 - Updating Android Mapwize SDK to 3.5.1.
 - Adding selectedPlace Prop.
-  
+
 ## Version 1.0.4
 
 - Fixing `getDirectionModes` returns `null` values bug.
