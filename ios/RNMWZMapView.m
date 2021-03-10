@@ -413,7 +413,7 @@
     NSDictionary* camera = @{
         @"zoomLevel": zoomLevel,
         @"bearing": bearing,
-        @"pitch": pitch,
+        @"tilt": pitch,
         @"center": coordinate
     };
     if (_onCameraChange) {

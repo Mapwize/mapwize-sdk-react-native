@@ -508,7 +508,7 @@ export class OfflineRegion {
 export interface Camera {
   zoomLevel: number
   bearing: number
-  pitch: number
+  tilt: number
   coordinate: LatLngFloor
 }
 
