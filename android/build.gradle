@@ -130,7 +130,7 @@ dependencies {
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:8.4.0'
     implementation('com.mapbox.mapboxsdk:mapbox-android-services:2.2.9@aar')
   } else {
-    implementation ("io.mapwize.sdk:mapwize-sdk:3.6.2")
+    implementation ("io.mapwize.sdk:mapwize-sdk:3.6.3")
   }
 
   implementation 'com.github.IndoorLocation:gps-indoor-location-provider-android:1.0.4'
