@@ -421,4 +421,25 @@
     }
 }
 
+- (void)mapViewRegionIsChanging:(MGLMapView *)mapView {
+    NSNumber* zoomLevel = [NSNumber numberWithDouble:mapView.zoomLevel];
+    NSNumber* bearing = [NSNumber numberWithDouble:mapView.camera.heading];
+    NSNumber* pitch = [NSNumber numberWithFloat:mapView.camera.pitch];
+    NSMutableDictionary* coordinate = [[NSMutableDictionary alloc] init];
+    coordinate[@"latitude"] = [NSNumber numberWithFloat:mapView.centerCoordinate.latitude];
+    coordinate[@"longitude"] = [NSNumber numberWithFloat:mapView.centerCoordinate.longitude];
+    if ([self.mapView getFloor]) {
+        coordinate[@"floor"] = [self.mapView getFloorNumber];
+    }
+    NSDictionary* camera = @{
+        @"zoomLevel": zoomLevel,
+        @"bearing": bearing,
+        @"tilt": pitch,
+        @"center": coordinate
+    };
+    if (_onCameraChange) {
+        _onCameraChange(@{@"value": camera});
+    }
+}
+
 @end
