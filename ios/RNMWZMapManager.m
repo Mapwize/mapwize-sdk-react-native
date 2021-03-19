@@ -460,13 +460,13 @@ RCT_EXPORT_METHOD(setFollowUserMode:(nonnull NSNumber*) reactTag
         }
         
         RNMWZMapView* mv = (RNMWZMapView*)view;
-        if (mode[@"none"]) {
+        if ([mode[@"followUserMode"] isEqualToString:@"none"]) {
             [mv.mapView setFollowUserMode:MWZFollowUserModeNone];
         }
-        if (mode[@"follow_user"]) {
+        if ([mode[@"followUserMode"] isEqualToString:@"follow_user"]) {
             [mv.mapView setFollowUserMode:MWZFollowUserModeFollowUser];
         }
-        if (mode[@"follow_user_and_heading"]) {
+        if ([mode[@"followUserMode"] isEqualToString:@"follow_user_and_heading"]) {
             [mv.mapView setFollowUserMode:MWZFollowUserModeFollowUserAndHeading];
         }
         
