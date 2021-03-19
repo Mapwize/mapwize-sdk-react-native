@@ -356,7 +356,18 @@ public class RNMapwizeView extends FrameLayout {
         mapwizeMap.addOnLanguageChangeListener(language -> sendEventToJS(onLanguageChange_event, language));
         mapwizeMap.addOnLanguagesChangeListener(languages -> sendEventToJS(onLanguagesChange_event, languages));
         mapwizeMap.addOnDirectionModesChangeListener(directionModes -> sendEventToJS(onDirectionModesChange_event, directionModes));
+
         mapwizeMap.getMapboxMap().addOnCameraMoveListener(() -> {
+          CameraPosition mapboxCameraPosition = mapwizeMap.getMapboxMap().getCameraPosition();
+          Map<String, Object> cameraPosition = new HashMap<>();
+          cameraPosition.put("zoomLevel", mapboxCameraPosition.zoom);
+          cameraPosition.put("bearing", mapboxCameraPosition.bearing);
+          cameraPosition.put("tilt", mapboxCameraPosition.tilt);
+          LatLngFloor latLngFloor = new LatLngFloor(mapboxCameraPosition.target, mapwizeMap.getFloorNumber());
+          cameraPosition.put("center", latLngFloor);
+          sendEventToJS(onCameraChange_event, cameraPosition);
+        });
+        mapboxMap.addOnCameraIdleListener(() -> {
           CameraPosition mapboxCameraPosition = mapwizeMap.getMapboxMap().getCameraPosition();
           Map<String, Object> cameraPosition = new HashMap<>();
           cameraPosition.put("zoomLevel", mapboxCameraPosition.zoom);
