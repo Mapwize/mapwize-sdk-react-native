@@ -1,5 +1,14 @@
 # Mapwize SDK for React Native Changelog
 
+
+## Version 1.1.0
+
+- Fixing `FollowUserMode` on iOS.
+- Triggering the `onCameraChange` event along with the `OnCameraIdle` event.
+- Updating iOS Mapwize SDK to `3.4.5`.
+- Updating Android Mapwize SDK to `3.6.4`.
+
+
 ## Version 1.0.9
 
 - Fixing floor object in `PlaceDetails`
