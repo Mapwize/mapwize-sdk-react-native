@@ -357,8 +357,9 @@ public class RNMapwizeView extends FrameLayout {
         mapwizeMap.addOnLanguagesChangeListener(languages -> sendEventToJS(onLanguagesChange_event, languages));
         mapwizeMap.addOnDirectionModesChangeListener(directionModes -> sendEventToJS(onDirectionModesChange_event, directionModes));
 
-        mapwizeMap.getMapboxMap().addOnCameraMoveListener(() -> {
-          CameraPosition mapboxCameraPosition = mapwizeMap.getMapboxMap().getCameraPosition();
+        mapboxMap = mapwizeMap.getMapboxMap();
+        mapboxMap.addOnCameraMoveListener(() -> {
+          CameraPosition mapboxCameraPosition = mapboxMap.getCameraPosition();
           Map<String, Object> cameraPosition = new HashMap<>();
           cameraPosition.put("zoomLevel", mapboxCameraPosition.zoom);
           cameraPosition.put("bearing", mapboxCameraPosition.bearing);
@@ -368,7 +369,7 @@ public class RNMapwizeView extends FrameLayout {
           sendEventToJS(onCameraChange_event, cameraPosition);
         });
         mapboxMap.addOnCameraIdleListener(() -> {
-          CameraPosition mapboxCameraPosition = mapwizeMap.getMapboxMap().getCameraPosition();
+          CameraPosition mapboxCameraPosition = mapboxMap.getCameraPosition();
           Map<String, Object> cameraPosition = new HashMap<>();
           cameraPosition.put("zoomLevel", mapboxCameraPosition.zoom);
           cameraPosition.put("bearing", mapboxCameraPosition.bearing);
@@ -378,8 +379,6 @@ public class RNMapwizeView extends FrameLayout {
           sendEventToJS(onCameraChange_event, cameraPosition);
         });
 
-        mapboxMap = mapwizeMap.getMapboxMap();
-//        mapboxMap.addOnCameraIdleListener(() -> sendEventToJS(onMapIdle_event, "mapIdle"));
         onReady();
         sendEventToJS(onMapLoaded_event, null);
 
