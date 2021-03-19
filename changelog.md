@@ -1,6 +1,10 @@
 # Mapwize SDK for React Native Changelog
 
 
+## Version 1.1.1
+
+- Fixing a bug on the `OnCameraIdle` event.
+
 ## Version 1.1.0
 
 - Fixing `FollowUserMode` on iOS.
