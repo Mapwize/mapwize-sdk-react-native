@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.source_files = "ios/**/*.{h,m,mm}"
   
 
-  s.dependency "React"
+  s.dependency "React-Core"
   s.dependency "MapwizeSDK", '3.4.5'
   s.dependency "ManualIndoorLocationProvider"
 end
