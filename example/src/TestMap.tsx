@@ -48,6 +48,7 @@ const mapOptions: MapOptions = new MapOptions()
   .setRestrictContentToVenueIds([venueId])
   .setTilt(45)
   .setBearing(237)
+  .setMainColor('#9955BB')
   .setCompassEnabled(false)
 
 interface IState {

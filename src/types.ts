@@ -1486,6 +1486,7 @@ export class MapOptions {
   tilt?: number
   bearing?: number
   compassEnabled?: boolean = true
+  mainColor?: string
   constructor() {}
   setFloor(floor: number): MapOptions {
     this.floor = floor
@@ -1521,6 +1522,10 @@ export class MapOptions {
   }
   setLogoClickable(logoClickable: boolean): MapOptions {
     this.logoClickable = logoClickable
+    return this
+  }
+  setMainColor(mainColor: string): MapOptions {
+    this.mainColor = mainColor
     return this
   }
   setTilt(tilt: number): MapOptions {
