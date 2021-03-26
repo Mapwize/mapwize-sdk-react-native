@@ -455,8 +455,8 @@ export class MarkerProp {
  */
 export class DirectionProp {
   direction: Direction
-  directionOptions: DirectionOptions
-  constructor(direction: Direction, directionOptions: DirectionOptions) {
+  directionOptions?: DirectionOptions
+  constructor(direction: Direction, directionOptions?: DirectionOptions) {
     this.direction = direction
     this.directionOptions = directionOptions
   }
@@ -1442,12 +1442,11 @@ export class VenuePreview {
  */
 export class DirectionOptions {
   objectClass = 'DirectionOptions'
-  endMarkerIconName: string
+  endMarkerIconName?: string
   displayEndMarker: boolean
   centerOnStart: boolean
   displayStartingFloor: boolean
   constructor() {
-    this.endMarkerIconName = ''
     this.displayEndMarker = true
     this.centerOnStart = true
     this.displayStartingFloor = true
