@@ -1,50 +1,56 @@
 # Mapwize SDK for React Native Changelog
 
+## Version 1.1.3
+
+- Adding mainColor to MapOptions
+- Updating iOS Mapwize SDK to `3.5.2`
+- Updating Android Mapwize SDK to `3.7.1`
+
 ## Version 1.1.2
 
 - Fixing dependencies issue do to last xcode version
 
 ## Version 1.1.1
 
-- Fixing a bug on the `OnCameraIdle` event.
+- Fixing a bug on the `OnCameraIdle` event
 
 ## Version 1.1.0
 
-- Fixing `FollowUserMode` on iOS.
-- Triggering the `onCameraChange` event along with the `OnCameraIdle` event.
-- Updating iOS Mapwize SDK to `3.4.5`.
-- Updating Android Mapwize SDK to `3.6.4`.
+- Fixing `FollowUserMode` on iOS
+- Triggering the `onCameraChange` event along with the `OnCameraIdle` event
+- Updating iOS Mapwize SDK to `3.4.5`
+- Updating Android Mapwize SDK to `3.6.4`
 
 ## Version 1.0.9
 
 - Fixing floor object in `PlaceDetails`
-- Updating Mapwize Android SDK to `3.6.3` and Mapwize iOS SDK to `3.4.4`.
-- Using `number` instead of `Number`.
+- Updating Mapwize Android SDK to `3.6.3` and Mapwize iOS SDK to `3.4.4`
+- Using `number` instead of `Number`
 
 ## Version 1.0.8
 
-- Adding place details API.
-- Adding `onLanguagesChange` event.
-- Adding `resetNorth` method.
-- Adding `onCameraChange` event.
+- Adding place details API
+- Adding `onLanguagesChange` event
+- Adding `resetNorth` method
+- Adding `onCameraChange` event
 
 ## Version 1.0.7
 
-- Fixing booleans values not sent to RN.
+- Fixing booleans values not sent to RN
 
 ## Version 1.0.6
 
-- Fixing gradle sdk version not found.
+- Fixing gradle sdk version not found
 
 ## Version 1.0.5
 
-- Updating iOS Mapwize SDK to 3.3.0.
-- Updating Android Mapwize SDK to 3.5.1.
-- Adding selectedPlace Prop.
+- Updating iOS Mapwize SDK to 3.3.0
+- Updating Android Mapwize SDK to 3.5.1
+- Adding selectedPlace Prop
 
 ## Version 1.0.4
 
-- Fixing `getDirectionModes` returns `null` values bug.
+- Fixing `getDirectionModes` returns `null` values bug
 
 ## Version 1.0.3
 
