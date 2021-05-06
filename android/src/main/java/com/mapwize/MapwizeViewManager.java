@@ -163,7 +163,10 @@ public class MapwizeViewManager extends SimpleViewManager<RNMapwizeView> {
     Direction mapDirection = (Direction) RNMapUtil.objectFromRNMap(options.getMap("direction"));
     DirectionOptions directionOptions = null;
     if (options.hasKey("directionOptions")) {
-      directionOptions = (DirectionOptions) RNMapUtil.objectFromRNMap(options.getMap("directionOptions"));
+      ReadableMap directionOptionsReadableMap = options.getMap("directionOptions");
+      if (directionOptionsReadableMap != null) {
+        directionOptions = (DirectionOptions) RNMapUtil.objectFromRNMap(directionOptionsReadableMap);
+      }
     }
     rnMapView.setDirection(mapDirection, directionOptions);
   }
