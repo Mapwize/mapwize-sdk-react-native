@@ -145,9 +145,9 @@ export interface OfflineManager {
    */
   hasOfflineRegion: (venue: Venue, universe: Universe) => Promise<boolean>
   /**
-   * Get an offline region using a (venue, universe) pair
-   * @param venue  the venue to be downloaded.
-   * @param universe  the universe to be downloaded.
+   * Get an offline region using a (venue, universe) pair if it exists
+   * @param venue  the venue that has been downloaded.
+   * @param universe  the universe that has been downloaded.
    */
   getOfflineRegion: (venue: Venue, universe: Universe) => Promise<OfflineRegion>
   /**
