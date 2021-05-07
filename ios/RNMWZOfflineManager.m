@@ -85,7 +85,12 @@ RCT_REMAP_METHOD(getOfflineRegion,
     MWZVenue* venue = [MWZApiResponseParser parseVenue:venueDic];
     MWZUniverse* universe = [MWZApiResponseParser parseUniverse:universeDic];
     MWZOfflineRegion* region = [offlineManager getOfflineRegionForVenue:venue universe:universe];
-    resolve([self serializeOfflineRegion:region]);
+    if (region) {
+        resolve([self serializeOfflineRegion:region]);
+    }
+    else {
+        reject(@"OfflineManager", @"Offline Region has not been downloaded", nil);
+    }
 }
 
 RCT_REMAP_METHOD(getOfflineRegions,
