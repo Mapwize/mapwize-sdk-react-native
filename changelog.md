@@ -1,5 +1,10 @@
 # Mapwize SDK for React Native Changelog
 
+## Version 1.1.4
+
+- Fixing `getOfflineRegion` method error
+- Updating Android Mapwize SDK to `3.7.2`
+
 ## Version 1.1.3
 
 - Adding mainColor to MapOptions
