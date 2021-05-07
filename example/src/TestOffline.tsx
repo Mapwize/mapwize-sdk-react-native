@@ -182,6 +182,31 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
       })
   }
 
+  getOfflineRegionTest = (
+    resolve: () => void,
+    reject: (reason: string) => void
+  ) => {
+    const offlineManager: OfflineManager = CreateOfflineManager(
+      mapwizeConfiguration
+    )
+    mapwizeApi &&
+      mapwizeApi.getVenue(venueId).then((venue: Venue) => {
+        mapwizeApi
+          .getAccessibleUniversesForVenue(venue)
+          .then((universes: Universe[]) =>
+            offlineManager.getOfflineRegion(venue, universes[0])
+          )
+          .then(
+            (offlineRegion: OfflineRegion) => {
+              this.setState({
+                offlineMangerState1: 'Got : ' + JSON.stringify(offlineRegion),
+              })
+              resolve()
+            },
+            (message: string) => reject(message)
+          )
+      })
+  }
   getOfflineRegionsTest = (
     resolve: () => void,
     reject: (reason: string) => void

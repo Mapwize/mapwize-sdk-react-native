@@ -124,6 +124,22 @@ public class MapwizeOfflineModule extends ReactContextBaseJavaModule {
     });
   }
   @ReactMethod
+  public void getOfflineRegion(String contextId, ReadableMap venueRN, ReadableMap universeRN, Promise promise) {
+    OfflineManager offlineManager = getContext(contextId);
+    Venue venue = (Venue) RNMapUtil.objectFromRNMap(venueRN);
+    Universe universe = (Universe) RNMapUtil.objectFromRNMap(universeRN);
+    try {
+      OfflineRegion offlineRegion = offlineManager.getOfflineRegion(venue, universe);
+      if (offlineRegion == null) {
+        rejectPromise(promise, new Throwable("Offline Region has not been downloaded"));
+        return;
+      }
+      acceptPromise(promise, RNMapUtil.serialize(offlineRegion));
+    } catch( Throwable t) {
+      rejectPromise(promise, t);
+    }
+  }
+  @ReactMethod
   public void getOfflineRegions(String contextId, Promise promise) {
     OfflineManager offlineManager = getContext(contextId);
     try {
