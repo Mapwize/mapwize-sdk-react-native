@@ -6,7 +6,7 @@ import type { StyleProp, ViewStyle } from 'react-native'
  */
 export interface MapwizeApi {
   /**
-   * Use Mapwize Persistent CookieJar
+   * Use Mapwize Persistent CookieJar, this has to be called before any fetch request
    */
   shareMapwizeCookies: (use: boolean) => Promise<boolean>
   /**

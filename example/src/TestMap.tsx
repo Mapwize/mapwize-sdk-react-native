@@ -14,7 +14,7 @@ import MapwizeMap, {
   MapwizeViewRef,
   MapwizeConfiguration,
   Place,
-  mapwizeApi,
+  MapwizeApi,
   Direction,
   DirectionMode,
   Placelist,
@@ -71,7 +71,7 @@ interface IState {
 }
 interface IProps {}
 export default class TestApi extends React.PureComponent<IProps, IState> {
-  mapwizeApi: mapwizeApi
+  mapwizeApi: MapwizeApi
   centerOnPlaceTest = (resolve: (data: any) => void, reject: () => void) => {
     const searchParams = new SearchParams('Mapwize').setObjectClasses(['place'])
     this.mapwizeApi.search(searchParams).then(

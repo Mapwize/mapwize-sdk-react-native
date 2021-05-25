@@ -1,5 +1,9 @@
 # Mapwize SDK for React Native Changelog
 
+## Version 1.1.5-beta1
+
+- Adding cookies sharing between Mapwize API and React Native fetch API.
+
 ## Version 1.1.4
 
 - Fixing `getOfflineRegion` method error
