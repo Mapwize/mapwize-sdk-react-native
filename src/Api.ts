@@ -20,6 +20,7 @@ export const createApi = (
   let contextId = 'context-' + count++
   RNMWZApi.createMapwizeApi(mapwizeConfiguration, contextId)
   return {
+    shareMapwizeCookies: shareMapwizeCookies(contextId),
     getAccess: getAccess(contextId),
     getAccessibleUniversesForVenue: getAccessibleUniversesForVenue(contextId),
     getDirection: getDirection(contextId),
@@ -47,6 +48,9 @@ export const createApi = (
     search: search(contextId),
   }
 }
+
+const shareMapwizeCookies = (contextId: string) => (use: boolean) =>
+  RNMWZApi.shareMapwizeCookies(contextId, use)
 
 const getAccess = (contextId: string) => (accessKey: string) =>
   RNMWZApi.getAccess(contextId, accessKey)

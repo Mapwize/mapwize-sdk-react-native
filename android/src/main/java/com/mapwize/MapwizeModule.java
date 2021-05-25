@@ -1,6 +1,7 @@
 package com.mapwize;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -8,6 +9,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.modules.network.OkHttpClientProvider;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,6 +34,9 @@ import io.mapwize.mapwizesdk.api.SearchParams;
 import io.mapwize.mapwizesdk.api.Universe;
 import io.mapwize.mapwizesdk.api.Venue;
 import io.mapwize.mapwizesdk.core.MapwizeConfiguration;
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
 
 public class MapwizeModule extends ReactContextBaseJavaModule {
 
@@ -65,6 +70,47 @@ public class MapwizeModule extends ReactContextBaseJavaModule {
     } catch (Throwable t) {
       promise.reject("Can't create context", t);
     }
+  }
+  @ReactMethod
+  public void shareMapwizeCookies(String contextId, Boolean useCookies, Promise promise) {
+    MapwizeContext context = getContext(contextId);
+    try {
+      shareCookies(context.getConfiguration(), useCookies, promise);
+    }catch (Throwable throwable) {
+      rejectPromise(promise, throwable);
+    }
+  }
+
+  private void shareCookies(MapwizeConfiguration mapwizeConfiguration, boolean use, Promise promise) {
+
+    OkHttpClientProvider.setOkHttpClientFactory(() -> {
+      if (use) {
+        CookieJar cookieJar = MapwizeApiFactory.getOkHttpclient(mapwizeConfiguration).cookieJar();
+        CookieJar cookieJar1 = new CookieJar() {
+          @Override
+          public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+            Log.d("JARCOOKIES", "creating new cookies" + url.toString());
+            cookieJar.saveFromResponse(url, cookies);
+          }
+
+          @Override
+          public List<Cookie> loadForRequest(HttpUrl url) {
+            Log.d("JARCOOKIES", "Give me my list of cookies" + url.toString());
+            List<Cookie> cookieList = cookieJar.loadForRequest(url);
+            return cookieList;
+          }
+        };
+        CookieJarContainer reactCookieJarContainer = new CookieJarContainer(cookieJar1);
+        Log.d("JARCOOKIES", "creating new Client");
+        acceptPromise(promise,use);
+        return OkHttpClientProvider.createClientBuilder()
+          .cookieJar(reactCookieJarContainer)
+          .build();
+      } else {
+        acceptPromise(promise,use);
+        return OkHttpClientProvider.createClientBuilder().build();
+      }
+    });
   }
 
   private MapwizeContext getContext(String contextId) {
