@@ -1,7 +1,6 @@
 package com.mapwize;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -9,7 +8,6 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
-import com.facebook.react.modules.network.OkHttpClientProvider;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -72,45 +70,23 @@ public class MapwizeModule extends ReactContextBaseJavaModule {
     }
   }
   @ReactMethod
-  public void shareMapwizeCookies(String contextId, Boolean useCookies, Promise promise) {
-    MapwizeContext context = getContext(contextId);
+  public void setCookie(String contextId, String setCookie, Promise promise) {
     try {
-      shareCookies(context.getConfiguration(), useCookies, promise);
+      MapwizeContext context = getContext(contextId);
+      HttpUrl httpUrl = HttpUrl.parse(context.getConfiguration().getServerUrl());
+      Cookie cookie = Cookie.parse(httpUrl, setCookie);
+      if (cookie == null) {
+        rejectPromise(promise, new Throwable("The cookie is not well formatted"));
+        return;
+      }
+      List<Cookie> cookies = new ArrayList<>();
+      cookies.add(cookie);
+      CookieJar cookieJar = MapwizeApiFactory.getOkHttpclient(context.getConfiguration()).cookieJar();
+      cookieJar.saveFromResponse(HttpUrl.get(context.getConfiguration().getServerUrl()), cookies);
+      acceptPromise(promise, true);
     }catch (Throwable throwable) {
       rejectPromise(promise, throwable);
     }
-  }
-
-  private void shareCookies(MapwizeConfiguration mapwizeConfiguration, boolean use, Promise promise) {
-
-    OkHttpClientProvider.setOkHttpClientFactory(() -> {
-      if (use) {
-        CookieJar cookieJar = MapwizeApiFactory.getOkHttpclient(mapwizeConfiguration).cookieJar();
-        CookieJar cookieJar1 = new CookieJar() {
-          @Override
-          public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
-            Log.d("JARCOOKIES", "creating new cookies" + url.toString());
-            cookieJar.saveFromResponse(url, cookies);
-          }
-
-          @Override
-          public List<Cookie> loadForRequest(HttpUrl url) {
-            Log.d("JARCOOKIES", "Give me my list of cookies" + url.toString());
-            List<Cookie> cookieList = cookieJar.loadForRequest(url);
-            return cookieList;
-          }
-        };
-        CookieJarContainer reactCookieJarContainer = new CookieJarContainer(cookieJar1);
-        Log.d("JARCOOKIES", "creating new Client");
-        acceptPromise(promise,use);
-        return OkHttpClientProvider.createClientBuilder()
-          .cookieJar(reactCookieJarContainer)
-          .build();
-      } else {
-        acceptPromise(promise,use);
-        return OkHttpClientProvider.createClientBuilder().build();
-      }
-    });
   }
 
   private MapwizeContext getContext(String contextId) {

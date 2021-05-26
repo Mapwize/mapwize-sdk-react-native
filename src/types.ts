@@ -6,9 +6,10 @@ import type { StyleProp, ViewStyle } from 'react-native'
  */
 export interface MapwizeApi {
   /**
-   * Use Mapwize Persistent CookieJar, this has to be called before any fetch request
+   * set Cookie for Mapwize API
+   * @param setCookie  a Set-Cookie HTTP header value
    */
-  shareMapwizeCookies: (use: boolean) => Promise<boolean>
+  setCookie: (setCookie: string) => Promise<boolean>
   /**
    * Gain access to private building using an access key
    */

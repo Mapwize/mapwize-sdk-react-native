@@ -1,8 +1,8 @@
 # Mapwize SDK for React Native Changelog
 
-## Version 1.1.5-beta1
+## Version 1.1.5-beta2
 
-- Adding cookies sharing between Mapwize API and React Native fetch API.
+- Adding setCookie to support authentication using React Native fetch API.
 
 ## Version 1.1.4
 
