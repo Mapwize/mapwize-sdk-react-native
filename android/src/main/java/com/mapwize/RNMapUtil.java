@@ -63,6 +63,7 @@ import io.mapwize.mapwizesdk.map.FollowUserMode;
 import io.mapwize.mapwizesdk.map.MapOptions;
 import io.mapwize.mapwizesdk.map.MapwizeIndoorLocation;
 import io.mapwize.mapwizesdk.map.Marker;
+import io.mapwize.mapwizesdk.map.MarkerOptions;
 import io.mapwize.mapwizesdk.map.NavigationInfo;
 import io.mapwize.mapwizesdk.map.PlacePreview;
 import io.mapwize.mapwizesdk.map.VenuePreview;
@@ -279,6 +280,8 @@ public class RNMapUtil {
             return io.mapwize.mapwizesdk.map.Parser.parseMapOptions(jsonObject);
           case "Marker":
             return io.mapwize.mapwizesdk.map.Parser.parseMarker(jsonObject, null);
+          case "MarkerOptions":
+            return io.mapwize.mapwizesdk.map.Parser.parseMarkerOptions(jsonObject);
           case "FollowUserMode":
             return io.mapwize.mapwizesdk.map.Parser.parseFollowUserMode(jsonObject);
           case "IndoorLocation":
@@ -519,20 +522,35 @@ public class RNMapUtil {
     return array;
   }
 
-  public static List<HashMap<String, Object>> parseMarkers(ReadableArray markers) {
-    List<HashMap<String, Object>> markersMap = new ArrayList<>();
+  public static List<Object> parseMarkers(ReadableArray markers) {
+    List<Object> markersMap = new ArrayList<>();
     for (int i = 0; i < markers.size(); i++) {
-      if (markers.getMap(i).hasKey("position")) {
-        HashMap<String, Object> marker = new HashMap<>();
-        marker.put("position", objectFromRNMap(markers.getMap(i).getMap("position")));
+      if (markers.getMap(i).hasKey("position")) {//Old way
+        Object position = objectFromRNMap(markers.getMap(i).getMap("position"));
+        MarkerOptions.Builder markerOptionsBuilder = new MarkerOptions.Builder();
         if (markers.getMap(i).hasKey("markerName")) {
-          marker.put("markerName", markers.getMap(i).getString("markerName"));
+          markerOptionsBuilder.iconName(markers.getMap(i).getString("markerName"));
         }
-        markersMap.add(marker);
+        MarkerOptions markerOptions = markerOptionsBuilder.build();
+
+        if (position instanceof Place) {
+          markersMap.add(Marker.createMarker((Place) position, markerOptions));
+        } else if (position instanceof PlacePreview) {
+          markersMap.add(Marker.createMarker((PlacePreview) position, markerOptions));
+        } else if (position instanceof PlaceDetails) {
+          markersMap.add(Marker.createMarker((PlaceDetails) position, markerOptions));
+        } else if (position instanceof Placelist) {
+          Map<String, Object> placeDetailsMarkers = new HashMap<>();
+          placeDetailsMarkers.put("markerName", markers.getMap(i).getString("markerName"));
+          markersMap.add(placeDetailsMarkers);
+        }
+      } else {// The new Marker signature
+        markersMap.add(objectFromRNMap(markers.getMap(i)));
       }
     }
     return markersMap;
   }
+
   public static HashMap<String, Style> parsePlaceStyles(ReadableArray placeStyles) {
     HashMap<String, Style> placeStylesMap = new HashMap<>();
     for (int i = 0; i < placeStyles.size(); i++) {
