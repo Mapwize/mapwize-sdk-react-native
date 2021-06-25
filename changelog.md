@@ -1,5 +1,10 @@
 # Mapwize SDK for React Native Changelog
 
+## Version 1.1.5
+
+- Updating iOS Mapwize SDK to `3.6.1`
+- Updating Android Mapwize SDK to `3.8.3`
+
 ## Version 1.1.4
 
 - Fixing `getOfflineRegion` method error
