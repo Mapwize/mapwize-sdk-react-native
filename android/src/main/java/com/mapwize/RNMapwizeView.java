@@ -226,8 +226,6 @@ public class RNMapwizeView extends FrameLayout {
     this.compassEnabled = compassEnabled;
   }
 
-  static boolean mapboxInitialised = false;
-
   protected void load() {
     if (mapwizeContext == null) {
       return;
@@ -240,11 +238,6 @@ public class RNMapwizeView extends FrameLayout {
         syncMapviewLifecycle(mapwizeView, LIFECYCLESTEP_DESTROYED, mapviewLifecycleStep);
         mapwizeView = null;
         mapwizeMap = null;
-      }
-
-      if (!mapboxInitialised) {
-        Mapbox.getInstance(getContext(), "pk.mapwize");
-        mapboxInitialised = true;
       }
 
       FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
