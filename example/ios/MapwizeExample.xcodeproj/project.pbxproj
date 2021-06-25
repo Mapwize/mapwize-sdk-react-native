@@ -11,11 +11,13 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		84D340C164804400034775B2 /* Pods_MapwizeExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42ECCA765856C08525A8825F /* Pods_MapwizeExample.framework */; };
+		16E92C5530FE792C079E8F4E /* Pods_MapwizeExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67BD8638DF75AB03DE9266E0 /* Pods_MapwizeExample.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		0B7F65750FCEA4AE3ED50880 /* Pods-MapwizeExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapwizeExample.release.xcconfig"; path = "Target Support Files/Pods-MapwizeExample/Pods-MapwizeExample.release.xcconfig"; sourceTree = "<group>"; };
+		10933981C9B4E01F98BCB8A4 /* Pods-MapwizeExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapwizeExample.debug.xcconfig"; path = "Target Support Files/Pods-MapwizeExample/Pods-MapwizeExample.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* MapwizeExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapwizeExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = MapwizeExample/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = MapwizeExample/AppDelegate.m; sourceTree = "<group>"; };
@@ -25,9 +27,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MapwizeExample/main.m; sourceTree = "<group>"; };
 		20F357AD24636CDE00C146DC /* MapwizeExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MapwizeExample-Bridging-Header.h"; sourceTree = "<group>"; };
 		20F357AE24636CDF00C146DC /* MapwizeExample-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MapwizeExample-Bridging-Header.h"; sourceTree = "<group>"; };
-		42ECCA765856C08525A8825F /* Pods_MapwizeExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapwizeExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5657814D3B1E56F7C278AE71 /* Pods-MapwizeExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapwizeExample.release.xcconfig"; path = "Target Support Files/Pods-MapwizeExample/Pods-MapwizeExample.release.xcconfig"; sourceTree = "<group>"; };
-		5E17724681E2B4155179861F /* Pods-MapwizeExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapwizeExample.debug.xcconfig"; path = "Target Support Files/Pods-MapwizeExample/Pods-MapwizeExample.debug.xcconfig"; sourceTree = "<group>"; };
+		67BD8638DF75AB03DE9266E0 /* Pods_MapwizeExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MapwizeExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -36,7 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84D340C164804400034775B2 /* Pods_MapwizeExample.framework in Frameworks */,
+				16E92C5530FE792C079E8F4E /* Pods_MapwizeExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,8 +60,8 @@
 		1CFFDEF7170271C97B8B7E5A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				5E17724681E2B4155179861F /* Pods-MapwizeExample.debug.xcconfig */,
-				5657814D3B1E56F7C278AE71 /* Pods-MapwizeExample.release.xcconfig */,
+				10933981C9B4E01F98BCB8A4 /* Pods-MapwizeExample.debug.xcconfig */,
+				0B7F65750FCEA4AE3ED50880 /* Pods-MapwizeExample.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -70,7 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				42ECCA765856C08525A8825F /* Pods_MapwizeExample.framework */,
+				67BD8638DF75AB03DE9266E0 /* Pods_MapwizeExample.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -113,13 +113,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "MapwizeExample" */;
 			buildPhases = (
-				41AC7F5B18FCAD586A9D44EA /* [CP] Check Pods Manifest.lock */,
+				7C1F6C472C6AF0EB19AE9ED8 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				604CDFAB6BC22672B42280A1 /* [CP] Embed Pods Frameworks */,
+				F8141D8CA667C074AA4F8586 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -191,7 +191,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		41AC7F5B18FCAD586A9D44EA /* [CP] Check Pods Manifest.lock */ = {
+		7C1F6C472C6AF0EB19AE9ED8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -213,7 +213,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		604CDFAB6BC22672B42280A1 /* [CP] Embed Pods Frameworks */ = {
+		F8141D8CA667C074AA4F8586 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -333,7 +333,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5E17724681E2B4155179861F /* Pods-MapwizeExample.debug.xcconfig */;
+			baseConfigurationReference = 10933981C9B4E01F98BCB8A4 /* Pods-MapwizeExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -364,7 +364,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5657814D3B1E56F7C278AE71 /* Pods-MapwizeExample.release.xcconfig */;
+			baseConfigurationReference = 0B7F65750FCEA4AE3ED50880 /* Pods-MapwizeExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
