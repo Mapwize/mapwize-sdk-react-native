@@ -313,6 +313,13 @@
     self.onMarkerClick(@{@"value":[MWZSerializer serializeMarker:marker]});
 }
 
+- (void)mapView:(MWZMapView *_Nonnull)mapView didTapMarker:(MWZMarker *_Nonnull)marker {
+  if (!_onMarkerClick) {
+    return;
+  }
+  self.onMarkerClick(@{@"value":[MWZSerializer serializeMWZMarker:marker]});
+}
+
 -(void)mapView:(MWZMapView *)mapView didTap:(MWZClickEvent *)clickEvent {
     if (!_onMapClick) {
         return;
