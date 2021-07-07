@@ -41,7 +41,6 @@ const timeBetweenAutomaticTests = 3000
 const mapwizeConfiguration: MapwizeConfiguration = new MapwizeConfiguration(
   'MapwizeDevAPIKEY'
 )
-const mapwizeApi: MapwizeApi = CreateMapwizeAPI(mapwizeConfiguration)
 const venueId = '56b20714c3fa800b00d8f0b5'
 const placeId = '5bc49413bf0ed600114db1f0'
 
@@ -74,11 +73,12 @@ interface IState {
 }
 interface IProps {}
 export default class TestApi extends React.PureComponent<IProps, IState> {
+  mapwizeApi: MapwizeApi
   centerOnPlaceTest = (resolve: (data: any) => void, reject: () => void) => {
     const searchParams = new SearchParams('Mapwize').setObjectClasses(['place'])
-    mapwizeApi.search(searchParams).then(
+    this.mapwizeApi.search(searchParams).then(
       (mapwizeObjects: MapwizeObject[]) => {
-        mapwizeApi.getPlace(mapwizeObjects[0]._id).then(
+        this.mapwizeApi.getPlace(mapwizeObjects[0]._id).then(
           (place: Place) => {
             this.state.strongRef?.centerOn(place)
             resolve(place)
@@ -97,7 +97,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     resolve: (data: any) => void,
     reject: (data: any) => void
   ) => {
-    mapwizeApi.getPlace(placeId).then(
+    this.mapwizeApi.getPlace(placeId).then(
       (place: Place) => {
         this.state.strongRef?.centerOn(place)
         const markerOptions = new MarkerOptions()
@@ -111,14 +111,14 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
         })
         resolve(place)
       },
-      (error) => reject("Can't getVenue " + error.message)
+      (error: any) => reject("Can't getVenue " + error.message)
     )
   }
   addOldMarkerTest = (
     resolve: (data: any) => void,
     reject: (data: any) => void
   ) => {
-    mapwizeApi.getPlace(placeId).then(
+    this.mapwizeApi.getPlace(placeId).then(
       (place: Place) => {
         this.state.strongRef?.centerOn(place)
         this.setState({
@@ -140,9 +140,9 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     reject: () => void
   ) => {
     const searchParams = new SearchParams('Mapwize').setObjectClasses(['place'])
-    mapwizeApi.search(searchParams).then(
+    this.mapwizeApi.search(searchParams).then(
       (mapwizeObjects: MapwizeObject[]) => {
-        mapwizeApi.getPlace(mapwizeObjects[0]._id).then(
+        this.mapwizeApi.getPlace(mapwizeObjects[0]._id).then(
           (place: Place) => {
             this.state.strongRef?.centerOn(place, 22)
             resolve(place)
@@ -162,9 +162,9 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     reject: () => void
   ) => {
     const searchParams = new SearchParams('Mapwize').setObjectClasses(['place'])
-    mapwizeApi.search(searchParams).then(
+    this.mapwizeApi.search(searchParams).then(
       (mapwizeObjects: MapwizeObject[]) => {
-        mapwizeApi.getPlace(mapwizeObjects[0]._id).then(
+        this.mapwizeApi.getPlace(mapwizeObjects[0]._id).then(
           (place: Place) => {
             this.state.strongRef?.centerOn(place, 22, true)
             resolve(place)
@@ -193,7 +193,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     )
   }
   centerOnVenueTest = (resolve: (data: any) => void, reject: () => void) => {
-    mapwizeApi.getVenue(venueId).then(
+    this.mapwizeApi.getVenue(venueId).then(
       (venue: Venue) => {
         this.state.strongRef?.centerOn(venue)
         resolve(venue)
@@ -207,7 +207,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     resolve: (data: any) => void,
     reject: () => void
   ) => {
-    mapwizeApi.getVenue(venueId).then(
+    this.mapwizeApi.getVenue(venueId).then(
       (venue: Venue) => {
         this.state.strongRef?.centerOn(venue, 13)
         resolve(venue)
@@ -221,7 +221,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     resolve: (data: any) => void,
     reject: () => void
   ) => {
-    mapwizeApi.getVenue(venueId).then(
+    this.mapwizeApi.getVenue(venueId).then(
       (venue: Venue) => {
         this.state.strongRef?.centerOn(venue, 19, true)
         resolve(venue)
@@ -268,9 +268,9 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     resolve: (data: any) => void,
     reject: (data: any) => void
   ) => {
-    mapwizeApi.getVenue(venueId).then(
+    this.mapwizeApi.getVenue(venueId).then(
       (venue: Venue) => {
-        mapwizeApi.getAccessibleUniversesForVenue(venue).then(
+        this.mapwizeApi.getAccessibleUniversesForVenue(venue).then(
           (universes: Universe[]) => {
             this.state.strongRef?.setUniverse(universes[1])
             resolve(universes[1])
@@ -286,9 +286,9 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     resolve: (data: any) => void,
     reject: (data: any) => void
   ) => {
-    mapwizeApi.getVenue(venueId).then(
+    this.mapwizeApi.getVenue(venueId).then(
       (venue: Venue) => {
-        mapwizeApi.getAccessibleUniversesForVenue(venue).then(
+        this.mapwizeApi.getAccessibleUniversesForVenue(venue).then(
           (universes: Universe[]) => {
             this.state.strongRef?.setUniverse(universes[1])
             resolve(universes[1])
@@ -304,7 +304,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     resolve: (data: any) => void,
     reject: (data: any) => void
   ) => {
-    mapwizeApi.getVenue(venueId).then(
+    this.mapwizeApi.getVenue(venueId).then(
       (venue: Venue) => {
         this.state.strongRef?.setLanguageForVenue('en', venue)
         resolve('en')
@@ -316,7 +316,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     resolve: (data: any) => void,
     reject: (data: any) => void
   ) => {
-    mapwizeApi.getPlace(placeId).then(
+    this.mapwizeApi.getPlace(placeId).then(
       (place: Place) => {
         this.state.strongRef?.centerOn(place)
         this.setState({ promotedPlaces: [place] })
@@ -335,7 +335,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     resolve: (data: any) => void,
     reject: (data: any) => void
   ) => {
-    mapwizeApi.getPlace(placeId).then(
+    this.mapwizeApi.getPlace(placeId).then(
       (place: Place) => {
         this.state.strongRef?.centerOn(place)
         this.setState({ selectedPlace: place })
@@ -354,10 +354,10 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     resolve: (data: any) => void,
     reject: (data: any) => void
   ) => {
-    mapwizeApi.getPlace('5eb40d9955039600161ce6d3').then((place1) => {
-      mapwizeApi.getPlace('5d08d8a4efe1d20012809ee5').then((place2) => {
+    this.mapwizeApi.getPlace('5eb40d9955039600161ce6d3').then((place1) => {
+      this.mapwizeApi.getPlace('5d08d8a4efe1d20012809ee5').then((place2) => {
         const mode = new DirectionMode('5da6bec9aefa100010c7df67', '', 0.0, '')
-        mapwizeApi.getDirection(place1, place2, mode).then(
+        this.mapwizeApi.getDirection(place1, place2, mode).then(
           (direction: Direction) => {
             this.setState({
               directionProp: new DirectionProp(
@@ -406,12 +406,12 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     resolve: (data: any) => void,
     reject: (data: any) => void
   ) => {
-    mapwizeApi.getPlace('5eb40d9955039600161ce6d3').then((place1) => {
+    this.mapwizeApi.getPlace('5eb40d9955039600161ce6d3').then((place1) => {
       console.log(place1.entranceCoordinate)
       this.setState({
         userLocation: place1.entranceCoordinate,
       })
-      mapwizeApi.getPlace('5d08d8a4efe1d20012809ee5').then(
+      this.mapwizeApi.getPlace('5d08d8a4efe1d20012809ee5').then(
         (destination) => {
           const mode = new DirectionMode(
             '5da6bec9aefa100010c7df67',
@@ -512,6 +512,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
   }
   constructor(props: any) {
     super(props)
+    this.mapwizeApi = CreateMapwizeAPI(mapwizeConfiguration)
     this.state = {
       tests: this.getTests(),
     } as any
@@ -627,7 +628,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
                       backgroundColor: index % 2 === 1 ? '#eee' : '#fff',
                       alignItems: 'flex-start',
                       borderColor: '#efe',
-                      paddingHorizontal: 80,
+                      paddingHorizontal: 16,
                       marginHorizontal: 16,
                     }}
                   >

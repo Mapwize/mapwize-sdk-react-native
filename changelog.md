@@ -1,5 +1,9 @@
 # Mapwize SDK for React Native Changelog
 
+## Version 1.1.7
+
+- Adding setCookie to support authentication using React Native fetch API.
+
 ## Version 1.1.6
 
 - Adding `MarkerOptions` to allow more control over the Marker appearances.

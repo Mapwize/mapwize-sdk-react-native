@@ -6,6 +6,11 @@ import type { StyleProp, ViewStyle } from 'react-native'
  */
 export interface MapwizeApi {
   /**
+   * set Cookie for Mapwize API
+   * @param setCookie  a Set-Cookie HTTP header value
+   */
+  setCookie: (setCookie: string) => Promise<boolean>
+  /**
    * Gain access to private building using an access key
    */
   getAccess: (accessKey: string) => Promise<boolean>
@@ -871,7 +876,8 @@ export class DirectionPointWrapper implements DirectionPoint {
  */
 export class DirectionPointWrapperAndDistance
   extends DirectionPointWrapper
-  implements DirectionPoint {
+  implements DirectionPoint
+{
   objectClass = 'DirectionPointWrapperAndDistance'
   distance: number
   traveltime: number

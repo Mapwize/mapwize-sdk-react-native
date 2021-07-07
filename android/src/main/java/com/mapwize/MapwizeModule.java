@@ -32,6 +32,9 @@ import io.mapwize.mapwizesdk.api.SearchParams;
 import io.mapwize.mapwizesdk.api.Universe;
 import io.mapwize.mapwizesdk.api.Venue;
 import io.mapwize.mapwizesdk.core.MapwizeConfiguration;
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
 
 public class MapwizeModule extends ReactContextBaseJavaModule {
 
@@ -64,6 +67,25 @@ public class MapwizeModule extends ReactContextBaseJavaModule {
       promise.resolve(currentContextId);
     } catch (Throwable t) {
       promise.reject("Can't create context", t);
+    }
+  }
+  @ReactMethod
+  public void setCookie(String contextId, String setCookie, Promise promise) {
+    try {
+      MapwizeContext context = getContext(contextId);
+      HttpUrl httpUrl = HttpUrl.parse(context.getConfiguration().getServerUrl());
+      Cookie cookie = Cookie.parse(httpUrl, setCookie);
+      if (cookie == null) {
+        rejectPromise(promise, new Throwable("The cookie is not well formatted"));
+        return;
+      }
+      List<Cookie> cookies = new ArrayList<>();
+      cookies.add(cookie);
+      CookieJar cookieJar = MapwizeApiFactory.getOkHttpclient(context.getConfiguration()).cookieJar();
+      cookieJar.saveFromResponse(HttpUrl.get(context.getConfiguration().getServerUrl()), cookies);
+      acceptPromise(promise, true);
+    }catch (Throwable throwable) {
+      rejectPromise(promise, throwable);
     }
   }
 

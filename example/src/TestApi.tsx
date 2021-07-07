@@ -28,7 +28,6 @@ import {
 const mapwizeConfiguration = new MapwizeConfiguration(
   '47aabfedfe66c0cf4a5ebe0c0bdb6d0d'
 )
-const api1: MapwizeApi = CreateMapwizeAPI(mapwizeConfiguration)
 const venueId = '56b20714c3fa800b00d8f0b5'
 const placeId = '5bc49413bf0ed600114db1f0'
 const mapwizePlaceId = '5d08d8a4efe1d20012809ee5'
@@ -72,14 +71,15 @@ interface IState {
 }
 interface IProps {}
 export default class TestApi extends React.PureComponent<IProps, IState> {
+  api1: MapwizeApi
   search1Test = (resolve: () => void, reject: () => void) => {
     const searchParams = new SearchParams('Rest').setObjectClasses([
       'place',
       'placelist',
       'venue',
     ])
-    api1 &&
-      api1.search(searchParams).then(
+    this.api1 &&
+      this.api1.search(searchParams).then(
         (mapwizeObjects: MapwizeObject[]) => {
           showAlert(
             "search1() in Euratech for 'fr' with objectClass ['place', 'placelist', 'venue']', showing names",
@@ -101,7 +101,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
       .setObjectClasses(['place', 'placelist'])
       .setVenueId(venueId)
 
-    api1.search(searchParams).then(
+    this.api1.search(searchParams).then(
       (mapwizeObjects: MapwizeObject[]) => {
         showAlert(
           "search2() in Euratech for 'bathroom' with objectClass ['place', 'placelist']', with .setVenueId('56b20714c3fa800b00d8f0b5')",
@@ -137,11 +137,11 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
   }
 
   getAccessTest = (resolve: () => void, reject: () => void) => {
-    api1.getVenue(venueId).then((venue: Venue) => {
-      api1
+    this.api1.getVenue(venueId).then((venue: Venue) => {
+      this.api1
         .getAccessibleUniversesForVenue(venue)
         .then((universes1: Universe[]) => {
-          api1.getAccess(accessKey).then(
+          this.api1.getAccess(accessKey).then(
             (gotAccess: boolean) => {
               if (!gotAccess) {
                 showAlert(
@@ -151,7 +151,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
                 )
                 return
               }
-              api1
+              this.api1
                 .getAccessibleUniversesForVenue(venue)
                 .then((universes2: Universe[]) => {
                   if (universes1.length !== universes2.length) {
@@ -186,7 +186,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
   }
 
   getAccessDummyKeyTest = (resolve: () => void, reject: () => void) => {
-    api1.getAccess('dummyKey').then(
+    this.api1.getAccess('dummyKey').then(
       (gotAccess: boolean) => {
         if (gotAccess) {
           showAlert(`getAccessTest('${accessKey}') Failed`, gotAccess, reject)
@@ -202,10 +202,10 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
   twoConfigsApiKeyTest = (resolve: () => void, reject: () => void) => {
     const api = CreateMapwizeAPI(new MapwizeConfiguration(apiKeyRestricted))
 
-    api1.getVenue(venueId).then((venue: Venue) => {
+    this.api1.getVenue(venueId).then((venue: Venue) => {
       api.getAccessibleUniversesForVenue(venue).then(
         (universes1: Universe[]) => {
-          api1
+          this.api1
             .getAccessibleUniversesForVenue(venue)
             .then((universes2: Universe[]) => {
               if (universes1.length !== universes2.length) {
@@ -234,10 +234,10 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     resolve: () => void,
     reject: () => void
   ) => {
-    api1.getPlace('5eb40d9955039600161ce6d3').then((place1) => {
-      api1.getPlace('5d08d8a4efe1d20012809ee5').then((place2) => {
+    this.api1.getPlace('5eb40d9955039600161ce6d3').then((place1) => {
+      this.api1.getPlace('5d08d8a4efe1d20012809ee5').then((place2) => {
         const mode = new DirectionMode('5da6bec9aefa100010c7df67', '', 0.0, '')
-        api1
+        this.api1
           .getDirection(place1, [place2, place2, place2], mode, [
             place2,
             place2,
@@ -263,10 +263,10 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     })
   }
   getDirectionWaypointTest = (resolve: () => void, reject: () => void) => {
-    api1
+    this.api1
       .search(new SearchParams('Le Switch'))
       .then((mapwizeObjects: Array<MapwizeObject>) => {
-        api1
+        this.api1
           .search(
             new SearchParams('F')
               .setVenueId(venueId)
@@ -279,7 +279,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
               0.0,
               ''
             )
-            api1
+            this.api1
               .getDirection(mapwizeObjects[0], mapwizeObjects2[0], mode, [
                 mapwizeObjects2[0],
                 mapwizeObjects2[1],
@@ -301,10 +301,10 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
       })
   }
   getDirectionToManyTest = (resolve: () => void, reject: () => void) => {
-    api1.getPlace('5eb40d9955039600161ce6d3').then((place1) => {
-      api1.getPlace('5d08d8a4efe1d20012809ee5').then((place2) => {
+    this.api1.getPlace('5eb40d9955039600161ce6d3').then((place1) => {
+      this.api1.getPlace('5d08d8a4efe1d20012809ee5').then((place2) => {
         const mode = new DirectionMode('5da6bec9aefa100010c7df67', '', 0.0, '')
-        api1.getDirection(place1, [place2, place2, place2], mode).then(
+        this.api1.getDirection(place1, [place2, place2, place2], mode).then(
           (direction: Direction) => {
             showAlert('getDirectionMultipleTo', direction, resolve)
           },
@@ -316,10 +316,10 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     })
   }
   getDirectionTest = (resolve: () => void, reject: () => void) => {
-    api1.getPlace('5eb40d9955039600161ce6d3').then((place1) => {
-      api1.getPlace('5d08d8a4efe1d20012809ee5').then((place2) => {
+    this.api1.getPlace('5eb40d9955039600161ce6d3').then((place1) => {
+      this.api1.getPlace('5d08d8a4efe1d20012809ee5').then((place2) => {
         const mode = new DirectionMode('5da6bec9aefa100010c7df67', '', 0.0, '')
-        api1.getDirection(place1, place2, mode).then(
+        this.api1.getDirection(place1, place2, mode).then(
           (direction: Direction) => {
             showAlert('getDirectionTest', direction, resolve)
           },
@@ -330,21 +330,22 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
       })
     })
   }
-  getPlaceName = (id: string) => api1.getPlace(id).then((place) => place.name)
+  getPlaceName = (id: string) =>
+    this.api1.getPlace(id).then((place) => place.name)
 
   getDistancesTest = (resolve: () => void, reject: () => void) => {
-    api1.getPlace('5eb40d9955039600161ce6d3').then((place) => {
-      api1.getPlace('5eb40d98844640001629c883').then((meeting2) => {
-        api1.getPlace('5eb40d98844640001629c879').then((meeting3) => {
-          api1.getPlace('5eb40d987b62ff00167fca10').then((meeting1) => {
-            api1.getPlace('5eb40d99844640001629c893').then((meeting4) => {
+    this.api1.getPlace('5eb40d9955039600161ce6d3').then((place) => {
+      this.api1.getPlace('5eb40d98844640001629c883').then((meeting2) => {
+        this.api1.getPlace('5eb40d98844640001629c879').then((meeting3) => {
+          this.api1.getPlace('5eb40d987b62ff00167fca10').then((meeting1) => {
+            this.api1.getPlace('5eb40d99844640001629c893').then((meeting4) => {
               const mode = new DirectionMode(
                 '5da6bec9aefa100010c7df67',
                 '',
                 0.0,
                 ''
               )
-              api1
+              this.api1
                 .getDistances(
                   place,
                   [meeting2, meeting3, meeting1, meeting4],
@@ -372,10 +373,9 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
                     console.log(distanceResponse)
                     distanceResponse.distances.forEach((distance) => {
                       promises.push(
-                        this.getPlaceName(
-                          distance.placeId || ''
-                        ).then((name: string) =>
-                          data.push({ time: distance.traveltime, name })
+                        this.getPlaceName(distance.placeId || '').then(
+                          (name: string) =>
+                            data.push({ time: distance.traveltime, name })
                         )
                       )
                     })
@@ -394,8 +394,8 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     })
   }
   getMainFromsTest = (resolve: () => void, reject: () => void) => {
-    api1.getVenue(venueId).then((venue: Venue) => {
-      api1.getMainFroms(venue).then(
+    this.api1.getVenue(venueId).then((venue: Venue) => {
+      this.api1.getMainFroms(venue).then(
         (places: Place[]) => {
           showAlert(
             'getMainFromsTest',
@@ -410,8 +410,8 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     })
   }
   getMainSearchesTest = (resolve: () => void, reject: () => void) => {
-    api1.getVenue(venueId).then((venue: Venue) => {
-      api1.getMainSearches(venue).then(
+    this.api1.getVenue(venueId).then((venue: Venue) => {
+      this.api1.getMainSearches(venue).then(
         (mapwizeObjects: MapwizeObject[]) => {
           showAlert(
             'getMainSearchesTest',
@@ -427,7 +427,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
   }
   getLayersTest = (resolve: () => void, reject: () => void) => {
     const apiFilter = new ApiFilter().setVenueId(venueId)
-    api1.getLayers(apiFilter).then(
+    this.api1.getLayers(apiFilter).then(
       (layers: Layer[]) => {
         showAlert(
           'getLayersTest',
@@ -441,7 +441,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     )
   }
   getLayerTest = (resolve: () => void, reject: () => void) => {
-    api1.getLayer(layerId).then(
+    this.api1.getLayer(layerId).then(
       (layer1: Layer) =>
         showAlert(`getLayerTest('${layerId}')`, layer1, resolve),
       (error) => {
@@ -450,8 +450,8 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     )
   }
   getLayerWithNameTest = (resolve: () => void, reject: () => void) => {
-    api1.getVenue(venueId).then((venue: Venue) => {
-      api1.getLayerWithName('Euratech-Zoom', venue).then(
+    this.api1.getVenue(venueId).then((venue: Venue) => {
+      this.api1.getLayerWithName('Euratech-Zoom', venue).then(
         (layer: Layer) => {
           showAlert('getLayerWithNameTest Euratech-Zoom', layer, resolve)
         },
@@ -462,8 +462,8 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     })
   }
   getLayerWithAliasTest = (resolve: () => void, reject: () => void) => {
-    api1.getVenue(venueId).then((venue: Venue) => {
-      api1.getLayerWithAlias('Euratech-Zoom', venue).then(
+    this.api1.getVenue(venueId).then((venue: Venue) => {
+      this.api1.getLayerWithAlias('Euratech-Zoom', venue).then(
         (layer: Layer) => {
           showAlert("getLayerWithAliasTest('Euratech-Zoom')", layer, resolve)
         },
@@ -476,8 +476,8 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
 
   getPlacesTest = (resolve: () => void, reject: () => void) => {
     const apiFilter1 = new ApiFilter().setVenueId(venueId)
-    api1 &&
-      api1.getPlaces(apiFilter1).then(
+    this.api1 &&
+      this.api1.getPlaces(apiFilter1).then(
         (places: Place[]) =>
           showAlert(
             "getPlaces('56b20714c3fa800b00d8f0b5'), showing names",
@@ -491,7 +491,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
   }
 
   getPlaceDetailsTest = (resolve: () => void, reject: () => void) => {
-    api1.getPlaceDetails(mapwizePlaceId).then(
+    this.api1.getPlaceDetails(mapwizePlaceId).then(
       (placeDetails: PlaceDetails) => {
         console.log(placeDetails)
         showAlert(
@@ -511,7 +511,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
   }
 
   getPlaceTest = (resolve: () => void, reject: () => void) => {
-    api1.getPlace(placeId).then(
+    this.api1.getPlace(placeId).then(
       (place: Place) => {
         showAlert(`getPlaceTest('${placeId}')`, place, resolve)
       },
@@ -522,8 +522,8 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
   }
 
   getPlaceWithNameTest = (resolve: () => void, reject: () => void) => {
-    api1.getVenue(venueId).then((venue: Venue) => {
-      api1.getPlaceWithName('Mapwize', venue).then(
+    this.api1.getVenue(venueId).then((venue: Venue) => {
+      this.api1.getPlaceWithName('Mapwize', venue).then(
         (place: Place) => {
           showAlert("getPlaceWithNameTest('Mapwize')", place, resolve)
         },
@@ -534,8 +534,8 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     })
   }
   getPlaceWithAliasTest = (resolve: () => void, reject: () => void) => {
-    api1.getVenue(venueId).then((venue: Venue) => {
-      api1.getPlaceWithAlias('mapwize', venue).then(
+    this.api1.getVenue(venueId).then((venue: Venue) => {
+      this.api1.getPlaceWithAlias('mapwize', venue).then(
         (place: Place) => {
           showAlert("getPlaceWithAliasTest('mapwize')", place, resolve)
         },
@@ -547,7 +547,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
   }
   getPlacelistsTest = (resolve: () => void, reject: () => void) => {
     const apiFilter = new ApiFilter().setVenueId(venueId)
-    api1.getPlacelists(apiFilter).then(
+    this.api1.getPlacelists(apiFilter).then(
       (placelists: Placelist[]) => {
         showAlert(
           'getPlacelistsTest',
@@ -561,7 +561,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     )
   }
   getPlacelistTest = (resolve: () => void, reject: () => void) => {
-    api1.getPlacelist(placelistId).then(
+    this.api1.getPlacelist(placelistId).then(
       (placelist: Placelist) => {
         showAlert(`getPlacelistTest('${placelistId}')`, placelist, resolve)
       },
@@ -575,8 +575,8 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     )
   }
   getPlacelistWithNameTest = (resolve: () => void, reject: () => void) => {
-    api1.getVenue(venueId).then((venue: Venue) => {
-      api1.getPlacelistWithName('Bathrooms', venue).then(
+    this.api1.getVenue(venueId).then((venue: Venue) => {
+      this.api1.getPlacelistWithName('Bathrooms', venue).then(
         (placelist: Placelist) => {
           showAlert("getPlacelistWithNameTest('Bathrooms')", placelist, resolve)
         },
@@ -587,8 +587,8 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     })
   }
   getPlacelistWithAliasTest = (resolve: () => void, reject: () => void) => {
-    api1.getVenue(venueId).then((venue: Venue) => {
-      api1.getPlacelistWithAlias('bathrooms', venue).then(
+    this.api1.getVenue(venueId).then((venue: Venue) => {
+      this.api1.getPlacelistWithAlias('bathrooms', venue).then(
         (placelist: Placelist) => {
           showAlert(
             "getPlacelistWithAliasTest('bathrooms')",
@@ -604,7 +604,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
   }
   getVenuesTest = (resolve: () => void, reject: () => void) => {
     const apiFilter1 = new ApiFilter()
-    api1.getVenues(apiFilter1).then(
+    this.api1.getVenues(apiFilter1).then(
       (venues: Venue[]) => {
         showAlert(`getVenuesTest('${venues.length}')`, venues, resolve)
       },
@@ -618,7 +618,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     )
   }
   getVenueTest = (resolve: () => void, reject: () => void) => {
-    api1.getVenue(venueId).then(
+    this.api1.getVenue(venueId).then(
       (venue: Venue) => {
         showAlert(`getVenueTest('${venueId}')`, venue.name, resolve)
       },
@@ -628,7 +628,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     )
   }
   getVenueWithNameTest = (resolve: () => void, reject: () => void) => {
-    api1.getVenueWithName('Euratechnologies').then(
+    this.api1.getVenueWithName('Euratechnologies').then(
       (venue: Venue) => {
         showAlert(`getVenueWithNameTest('${venue.name}')`, venue, resolve)
       },
@@ -642,7 +642,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     )
   }
   getVenueWithAliasTest = (resolve: () => void, reject: () => void) => {
-    api1.getVenueWithAlias('euratechnologies').then(
+    this.api1.getVenueWithAlias('euratechnologies').then(
       (venue: Venue) => {
         showAlert(`getVenueWithAliasTest('${venue.alias}')`, venue, resolve)
       },
@@ -705,6 +705,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
   }
   constructor(props: any) {
     super(props)
+    this.api1 = CreateMapwizeAPI(mapwizeConfiguration)
     this.state = {
       tests: this.getTests(),
     }
