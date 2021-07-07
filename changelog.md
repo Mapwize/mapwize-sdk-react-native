@@ -1,5 +1,11 @@
 # Mapwize SDK for React Native Changelog
 
+## Version 1.1.6
+
+- Adding `MarkerOptions` to allow more control over the Marker appearances.
+- Updating iOS Mapwize SDK to `3.6.2`
+- Updating Android Mapwize SDK to `3.8.5`
+
 ## Version 1.1.5
 
 - Updating iOS Mapwize SDK to `3.6.1`
