@@ -197,7 +197,7 @@ public class MapwizeViewManager extends SimpleViewManager<RNMapwizeView> {
       rnMapView.removeMarkers();
       return;
     }
-    List<HashMap<String, Object>> markers = RNMapUtil.parseMarkers(options);
+    List<Object> markers = RNMapUtil.parseMarkers(options);
     rnMapView.setMarkers(markers);
   }
 

@@ -297,7 +297,7 @@ export interface MapwizeViewProps {
   /**
    * Markers that are currently displayed on the map.
    */
-  markers?: MarkerProp[] | undefined
+  markers?: Marker[] | MarkerProp[] | undefined
   /**
    * Places that are currently promoted on the map
    */
@@ -447,6 +447,128 @@ export class MarkerProp {
   ) {
     this.position = position
     this.markerName = markerName
+  }
+}
+
+export class MarkerOptions {
+  objectClass = 'MarkerOptions'
+  iconName?: string
+  title?: string
+  iconScale?: number
+  titleColor?: string
+  titleAnchor?:
+    | 'center'
+    | 'left'
+    | 'right'
+    | 'top'
+    | 'bottom'
+    | 'top-left'
+    | 'top-right'
+    | 'bottom-left'
+    | 'bottom-right'
+  iconAnchor?:
+    | 'center'
+    | 'left'
+    | 'right'
+    | 'top'
+    | 'bottom'
+    | 'top-left'
+    | 'top-right'
+    | 'bottom-left'
+    | 'bottom-right'
+  /**
+   * This can offset the title from the center.
+   * An array of two Float values : Positive values indicate right and down, while negative values indicate left and up
+   */
+  titleOffset?: number[]
+  titleFontSize?: number
+  constructor() {}
+  /**
+   * Sets the name of the icon that has been added using {@link MapwizeViewRef.addImageToMap}
+   *
+   * @param iconName a string value that used to add the image icon
+   */
+  setIconName(iconName: string): MarkerOptions {
+    this.iconName = iconName
+    return this
+  }
+  /**
+   * Sets the label of the Marker
+   */
+  setTitle(title: string): MarkerOptions {
+    this.title = title
+    return this
+  }
+  /**
+   * Sets the scale factor of the the icon and the original size.
+   *
+   * @param iconScale eg. "0.5"
+   */
+  setIconScale(iconScale: number): MarkerOptions {
+    this.iconScale = iconScale
+    return this
+  }
+  /**
+   * Sets the color of the Marker label
+   *
+   * @param titleColor eg. "#FFFFFF"
+   */
+  setTitleColor(titleColor: string): MarkerOptions {
+    this.titleColor = titleColor
+    return this
+  }
+  /**
+   * Sets the part of the text to be placed closest to the anchor.
+   */
+  setTitleAnchor(
+    titleAnchor:
+      | 'center'
+      | 'left'
+      | 'right'
+      | 'top'
+      | 'bottom'
+      | 'top-left'
+      | 'top-right'
+      | 'bottom-left'
+      | 'bottom-right'
+  ): MarkerOptions {
+    this.titleAnchor = titleAnchor
+    return this
+  }
+  /**
+   * Sets the part of the icon to be placed closest to the anchor.
+   */
+  setIconAnchor(
+    iconAnchor:
+      | 'center'
+      | 'left'
+      | 'right'
+      | 'top'
+      | 'bottom'
+      | 'top-left'
+      | 'top-right'
+      | 'bottom-left'
+      | 'bottom-right'
+  ): MarkerOptions {
+    this.iconAnchor = iconAnchor
+    return this
+  }
+  /**
+   * This can offset the title from the center.
+   * @param titleOffset An array of two number values : Positive values indicate right and down, while negative values indicate left and up
+   */
+  setTitleOffset(titleOffset: number[]): MarkerOptions {
+    this.titleOffset = titleOffset
+    return this
+  }
+  /**
+   * Sets the font size.
+   *
+   * @param titleFontSize a number value
+   */
+  setTitleFontSize(titleFontSize: number): MarkerOptions {
+    this.titleFontSize = titleFontSize
+    return this
   }
 }
 
@@ -1542,21 +1664,21 @@ export class MapOptions {
 }
 
 /**
- * Marker are provided by the SDK and the API.
- * You should not instantiate it yourself.
+ * MarkerProp contains required properties to display markers on the map
  */
 export class Marker {
   objectClass = 'Marker'
-  position: LatLngFloor | Place | Placelist | PlacePreview
-  markerIconName?: string
+  latLngFloor: LatLngFloor
   uuid?: string
-  placePreview?: PlacePreview
+  markerOptions?: MarkerOptions
   constructor(
-    position: LatLngFloor | Place | Placelist | PlacePreview,
-    markerIconName?: string
+    latLngFloor: LatLngFloor,
+    markerOptions?: MarkerOptions,
+    uuid?: string
   ) {
-    this.position = position
-    this.markerIconName = markerIconName
+    this.latLngFloor = latLngFloor
+    this.markerOptions = markerOptions
+    this.uuid = uuid
   }
 }
 

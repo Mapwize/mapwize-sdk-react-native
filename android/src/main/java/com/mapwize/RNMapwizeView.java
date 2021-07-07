@@ -41,6 +41,7 @@ import io.mapwize.mapwizesdk.map.FollowUserMode;
 import io.mapwize.mapwizesdk.map.MapOptions;
 import io.mapwize.mapwizesdk.map.MapwizeMap;
 import io.mapwize.mapwizesdk.map.MapwizeView;
+import io.mapwize.mapwizesdk.map.Marker;
 import io.mapwize.mapwizesdk.map.NavigationException;
 import io.mapwize.mapwizesdk.map.NavigationInfo;
 import io.mapwize.mapwizesdk.map.OnNavigationUpdateListener;
@@ -106,7 +107,7 @@ public class RNMapwizeView extends FrameLayout {
   private HashMap<String, Style> placesStyles;
   private List<Object> promotedPlaces;
   private LatLngFloor userLocation;
-  private List<HashMap<String, Object>> markers;
+  private List<Object> markers;
   private HashMap<String, Object> navigationProps;
 
   public RNMapwizeView(@NonNull ThemedReactContext context) {
@@ -494,39 +495,23 @@ public class RNMapwizeView extends FrameLayout {
     });
   }
 
-  public void setMarkers(List<HashMap<String, Object>> markers) {
+  public void setMarkers(List<Object> markers) {
     this.markers = markers;
-    if (mapwizeView == null) return;
+    if (mapwizeView == null){
+      return;
+    }
     mapwizeView.post(() -> {
       mapwizeMap.removeMarkers();
-      for (HashMap<String, Object> marker : markers) {
-          Object object = marker.get("position");
-          if (object instanceof Place) {
-            if (marker.containsKey("markerName")) {
-              mapwizeMap.addMarker((Place) object, (String) marker.get("markerName"));
-            } else {
-              mapwizeMap.addMarker((Place) object);
-            }
-          }
-        if (object instanceof Placelist) {
-          if (marker.containsKey("markerName")) {
-            mapwizeMap.addMarker((Placelist) object, (String) marker.get("markerName"), list -> {});//TODO handle callback
+      for (Object marker : markers) {
+        if (marker instanceof Marker) {
+          mapwizeMap.addMarker((Marker) marker);
+        } else if (marker instanceof HashMap) {
+          Map<String, Object> map = (HashMap) marker;
+          Placelist placelist = (Placelist) map.get("position");
+          if (map.containsKey("markerName")) {
+            mapwizeMap.addMarker(placelist, (String) map.get("markerName"), list -> {});//TODO handle callback
           } else {
-            mapwizeMap.addMarkers((Placelist) object, list -> {});//TODO handle callback
-          }
-        }
-        if (object instanceof PlacePreview) {
-          if (marker.containsKey("markerName")) {
-            mapwizeMap.addMarker((PlacePreview) object, (String) marker.get("markerName"));
-          } else {
-            mapwizeMap.addMarker((PlacePreview) object);
-          }
-        }
-        if (object instanceof LatLngFloor) {
-          if (marker.containsKey("markerName")) {
-            mapwizeMap.addMarker((LatLngFloor) object, (String) marker.get("markerName"));
-          } else {
-            mapwizeMap.addMarker((LatLngFloor) object);
+            mapwizeMap.addMarkers(placelist, list -> {});//TODO handle callback
           }
         }
       }
