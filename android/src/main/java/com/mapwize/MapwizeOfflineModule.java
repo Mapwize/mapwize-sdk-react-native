@@ -51,13 +51,7 @@ public class MapwizeOfflineModule extends ReactContextBaseJavaModule {
         rejectPromise(promise, new Exception("Unable to create context with missing ApiKey"));
         return;
       }
-      if (!RNMapwizeView.mapboxInitialised) {
-        getCurrentActivity().runOnUiThread(()->{
-          Mapbox.getInstance(getReactApplicationContext(), "pk.mapwize");
-        RNMapwizeView.mapboxInitialised = true;
-        });
 
-      }
       OfflineManager offlineManager = new OfflineManager(mapwizeConfiguration);
 
       map.put(currentContextId, offlineManager);

@@ -39,9 +39,8 @@ interface IState {
 interface IProps {}
 export default class TestApi extends React.PureComponent<IProps, IState> {
   downloadDataUniverse1Test = (resolve: () => void, reject: () => void) => {
-    const offlineManager: OfflineManager = CreateOfflineManager(
-      mapwizeConfiguration
-    )
+    const offlineManager: OfflineManager =
+      CreateOfflineManager(mapwizeConfiguration)
     mapwizeApi &&
       mapwizeApi.getVenue(venueId).then((venue: Venue) => {
         mapwizeApi
@@ -86,9 +85,8 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     resolve: () => void,
     reject: (reason: string) => void
   ) => {
-    const offlineManager: OfflineManager = CreateOfflineManager(
-      mapwizeConfiguration
-    )
+    const offlineManager: OfflineManager =
+      CreateOfflineManager(mapwizeConfiguration)
     mapwizeApi &&
       mapwizeApi.getVenue(venueId).then((venue: Venue) => {
         mapwizeApi
@@ -134,9 +132,8 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
       })
   }
   updateDataTest = (resolve: () => void, reject: (reason: string) => void) => {
-    const offlineManager: OfflineManager = CreateOfflineManager(
-      mapwizeConfiguration
-    )
+    const offlineManager: OfflineManager =
+      CreateOfflineManager(mapwizeConfiguration)
     mapwizeApi &&
       mapwizeApi.getVenue(venueId).then((venue: Venue) => {
         mapwizeApi
@@ -186,9 +183,8 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     resolve: () => void,
     reject: (reason: string) => void
   ) => {
-    const offlineManager: OfflineManager = CreateOfflineManager(
-      mapwizeConfiguration
-    )
+    const offlineManager: OfflineManager =
+      CreateOfflineManager(mapwizeConfiguration)
     mapwizeApi &&
       mapwizeApi.getVenue(venueId).then((venue: Venue) => {
         mapwizeApi
@@ -211,9 +207,8 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     resolve: () => void,
     reject: (reason: string) => void
   ) => {
-    const offlineManager: OfflineManager = CreateOfflineManager(
-      mapwizeConfiguration
-    )
+    const offlineManager: OfflineManager =
+      CreateOfflineManager(mapwizeConfiguration)
     offlineManager.getOfflineRegions().then(
       (offlineRegions: OfflineRegion[]) => {
         this.setState({
@@ -244,9 +239,8 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     resolve: () => void,
     reject: (reason: string) => void
   ) => {
-    const offlineManager: OfflineManager = CreateOfflineManager(
-      mapwizeConfiguration
-    )
+    const offlineManager: OfflineManager =
+      CreateOfflineManager(mapwizeConfiguration)
     offlineManager
       .getOfflineRegions()
       .then((offlineRegions: OfflineRegion[]) => {
@@ -269,9 +263,8 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     resolve: () => void,
     reject: (reason: string) => void
   ) => {
-    const offlineManager: OfflineManager = CreateOfflineManager(
-      mapwizeConfiguration
-    )
+    const offlineManager: OfflineManager =
+      CreateOfflineManager(mapwizeConfiguration)
     offlineManager
       .getOfflineRegions()
       .then((offlineRegions: OfflineRegion[]) => {
@@ -293,9 +286,8 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     resolve: () => void,
     reject: (reason: string) => void
   ) => {
-    const offlineManager: OfflineManager = CreateOfflineManager(
-      mapwizeConfiguration
-    )
+    const offlineManager: OfflineManager =
+      CreateOfflineManager(mapwizeConfiguration)
     mapwizeApi &&
       mapwizeApi.getVenue(venueId).then((venue: Venue) => {
         mapwizeApi
@@ -314,9 +306,8 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
     resolve: () => void,
     reject: (reason: string) => void
   ) => {
-    const offlineManager: OfflineManager = CreateOfflineManager(
-      mapwizeConfiguration
-    )
+    const offlineManager: OfflineManager =
+      CreateOfflineManager(mapwizeConfiguration)
     offlineManager
       .getOfflineRegions()
       .then((offlineRegions: OfflineRegion[]) => {

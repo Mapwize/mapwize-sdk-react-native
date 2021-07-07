@@ -73,47 +73,53 @@
     _markers = markers;
     [self.mapView removeMarkers];
     for (NSDictionary* object in markers) {
-        NSDictionary* marker = object[@"position"];
-        NSString* objectClass = marker[@"objectClass"];
-        NSString* iconName = object[@"markerName"];
-        if ([objectClass isEqualToString:@"LatLngFloor"]) {
-            MWZLatLngFloor* latLngFloor = [MWZApiResponseParser parseLatLngFloor:marker];
-            if (iconName) {
-                [_mapView addMarkerOnCoordinate:latLngFloor image:_imageByName[iconName]];
-            }
-            else {
-                [_mapView addMarkerOnCoordinate:latLngFloor];
-            }
+        if ([object[@"objectClass"] isEqualToString:@"Marker"]) {
+            MWZMarker* m = [MWZApiResponseParser parseMarker:object];
+            [_mapView addMarker:m];
         }
-        if ([objectClass isEqualToString:@"PlacePreview"]) {
-            MWZPlacePreview* placePreview = [MWZApiResponseParser parsePlacePreview:marker];
-            if (iconName) {
-                [_mapView addMarkerOnPlacePreview:placePreview image:_imageByName[iconName]];
+        else {
+            NSDictionary* marker = object[@"position"];
+            NSString* objectClass = marker[@"objectClass"];
+            NSString* iconName = object[@"markerName"];
+            if ([objectClass isEqualToString:@"LatLngFloor"]) {
+                MWZLatLngFloor* latLngFloor = [MWZApiResponseParser parseLatLngFloor:marker];
+                if (iconName) {
+                    [_mapView addMarkerOnCoordinate:latLngFloor image:_imageByName[iconName]];
+                }
+                else {
+                    [_mapView addMarkerOnCoordinate:latLngFloor];
+                }
             }
-            else {
-                [_mapView addMarkerOnPlacePreview:placePreview];
+            if ([objectClass isEqualToString:@"PlacePreview"]) {
+                MWZPlacePreview* placePreview = [MWZApiResponseParser parsePlacePreview:marker];
+                if (iconName) {
+                    [_mapView addMarkerOnPlacePreview:placePreview image:_imageByName[iconName]];
+                }
+                else {
+                    [_mapView addMarkerOnPlacePreview:placePreview];
+                }
             }
-        }
-        if ([objectClass isEqualToString:@"Place"]) {
-            MWZPlace* place = [MWZApiResponseParser parsePlace:marker];
-            if (iconName) {
-                [_mapView addMarkerOnPlace:place image:_imageByName[iconName]];
+            if ([objectClass isEqualToString:@"Place"]) {
+                MWZPlace* place = [MWZApiResponseParser parsePlace:marker];
+                if (iconName) {
+                    [_mapView addMarkerOnPlace:place image:_imageByName[iconName]];
+                }
+                else {
+                    [_mapView addMarkerOnPlace:place];
+                }
             }
-            else {
-                [_mapView addMarkerOnPlace:place];
-            }
-        }
-        if ([objectClass isEqualToString:@"Placelist"]) {
-            MWZPlacelist* placelist = [MWZApiResponseParser parsePlacelist:marker];
-            if (iconName) {
-                [_mapView addMarkersOnPlacelist:placelist image:_imageByName[iconName] completionHandler:^(NSArray<MWZMapwizeAnnotation *> * _Nonnull annotations) {
+            if ([objectClass isEqualToString:@"Placelist"]) {
+                MWZPlacelist* placelist = [MWZApiResponseParser parsePlacelist:marker];
+                if (iconName) {
+                    [_mapView addMarkersOnPlacelist:placelist image:_imageByName[iconName] completionHandler:^(NSArray<MWZMapwizeAnnotation *> * _Nonnull annotations) {
+                            
+                    }];
+                }
+                else {
+                    [_mapView addMarkersOnPlacelist:placelist completionHandler:^(NSArray<MWZMapwizeAnnotation *> * _Nonnull annotations) {
                         
-                }];
-            }
-            else {
-                [_mapView addMarkersOnPlacelist:placelist completionHandler:^(NSArray<MWZMapwizeAnnotation *> * _Nonnull annotations) {
-                    
-                }];
+                    }];
+                }
             }
         }
     }
@@ -305,6 +311,13 @@
         return;
     }
     self.onMarkerClick(@{@"value":[MWZSerializer serializeMarker:marker]});
+}
+
+- (void)mapView:(MWZMapView *_Nonnull)mapView didTapMarker:(MWZMarker *_Nonnull)marker {
+  if (!_onMarkerClick) {
+    return;
+  }
+  self.onMarkerClick(@{@"value":[MWZSerializer serializeMWZMarker:marker]});
 }
 
 -(void)mapView:(MWZMapView *)mapView didTap:(MWZClickEvent *)clickEvent {

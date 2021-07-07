@@ -34,6 +34,8 @@ import MapwizeMap, {
   NavigationInfo,
   LatLngFloor,
   PlaceStyleProp,
+  MarkerOptions,
+  Marker,
 } from 'mapwize-sdk-react-native'
 const timeBetweenAutomaticTests = 3000
 const mapwizeConfiguration: MapwizeConfiguration = new MapwizeConfiguration(
@@ -56,7 +58,7 @@ interface IState {
   strongRef: MapwizeViewRef | undefined
   tests: any
   directionProp: DirectionProp | undefined
-  markersProp: MarkerProp[] | undefined
+  markersProp: Marker[] | MarkerProp[] | undefined
   navigationProp: NavigationProp | undefined
   userLocation: LatLngFloor | undefined
   placeStyles: PlaceStyleProp[] | undefined
@@ -90,6 +92,48 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
         showAlert('search1', error.message, reject)
       }
     )
+  }
+  addMarkerTest = (
+    resolve: (data: any) => void,
+    reject: (data: any) => void
+  ) => {
+    this.mapwizeApi.getPlace(placeId).then(
+      (place: Place) => {
+        this.state.strongRef?.centerOn(place)
+        const markerOptions = new MarkerOptions()
+          .setIconScale(2)
+          .setTitle('Added from ts')
+          .setTitleColor('#F00')
+        this.setState({
+          markersProp: [
+            new Marker(place.markerCoordinate, markerOptions, 'Example Uuid'),
+          ],
+        })
+        resolve(place)
+      },
+      (error: any) => reject("Can't getVenue " + error.message)
+    )
+  }
+  addOldMarkerTest = (
+    resolve: (data: any) => void,
+    reject: (data: any) => void
+  ) => {
+    this.mapwizeApi.getPlace(placeId).then(
+      (place: Place) => {
+        this.state.strongRef?.centerOn(place)
+        this.setState({
+          markersProp: [new MarkerProp(place)],
+        })
+        resolve(place)
+      },
+      (error) => reject("Can't getVenue " + error.message)
+    )
+  }
+  removeMarkersTest = (resolve: (data: any) => void) => {
+    this.setState({
+      markersProp: undefined,
+    })
+    resolve(null)
   }
   centerOnPlaceZoomTest = (
     resolve: (data: any) => void,
@@ -267,25 +311,6 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
       },
       (error) => reject("Can't getVenue " + error.message)
     )
-  }
-  addMarkerTest = (
-    resolve: (data: any) => void,
-    reject: (data: any) => void
-  ) => {
-    this.mapwizeApi.getPlace(placeId).then(
-      (place: Place) => {
-        this.state.strongRef?.centerOn(place)
-        this.setState({ markersProp: [new MarkerProp(place)] })
-        resolve(place)
-      },
-      (error) => reject("Can't getVenue " + error.message)
-    )
-  }
-  removeMarkersTest = (resolve: (data: any) => void) => {
-    this.setState({
-      markersProp: undefined,
-    })
-    resolve(null)
   }
   addPromotedPlaceTest = (
     resolve: (data: any) => void,
@@ -504,6 +529,9 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
             onMapLoaded={(ref) => {
               this.setState({ strongRef: ref })
             }}
+            onMarkerClick={(marker: Marker) =>
+              Alert.alert('Markers', JSON.stringify(marker, null, 2))
+            }
             onMapClick={(clickEvent: ClickEvent) => {
               console.log(clickEvent.latLngFloor)
               this.setState({
@@ -600,7 +628,7 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
                       backgroundColor: index % 2 === 1 ? '#eee' : '#fff',
                       alignItems: 'flex-start',
                       borderColor: '#efe',
-                      paddingHorizontal: 80,
+                      paddingHorizontal: 16,
                       marginHorizontal: 16,
                     }}
                   >

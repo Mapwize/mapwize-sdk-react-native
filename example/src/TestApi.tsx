@@ -373,10 +373,9 @@ export default class TestApi extends React.PureComponent<IProps, IState> {
                     console.log(distanceResponse)
                     distanceResponse.distances.forEach((distance) => {
                       promises.push(
-                        this.getPlaceName(
-                          distance.placeId || ''
-                        ).then((name: string) =>
-                          data.push({ time: distance.traveltime, name })
+                        this.getPlaceName(distance.placeId || '').then(
+                          (name: string) =>
+                            data.push({ time: distance.traveltime, name })
                         )
                       )
                     })
